@@ -1,5 +1,6 @@
 <template>
   <div>
+    <HeaderComp />
     <FooterComp />
     
   </div>
@@ -10,12 +11,14 @@ import { defineComponent } from 'vue';
 
 // Components
 import FooterComp from '../components/FooterComp.vue';
+import HeaderComp from '../components/HeaderComp.vue';
 
 export default defineComponent({
   name: 'HomeView',
 
   components: {
     FooterComp,
+    HeaderComp,
   },
 });
 </script>
@@ -35,7 +38,7 @@ export default defineComponent({
   body {
     font-family: 'Palatino Linotype', 'Times New Roman', serif;
   }
-  
+
 
 
 </style>
