@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- El footer tiene 3 columnas que tienen 3 botones, la primera tiene el botón "UNIVERSIDADES" que redirige a otra página
-         La segunda tiene el botón "MÁS BUSCADOS" que lleva a otra página y la tercera tiene el botón "ACERCA DE NOSOTROS" que también redirige a otra página -->
     <v-footer
       app
       fixed
@@ -72,5 +70,14 @@ export default {
     z-index: 100;
   }
 
+  @media only screen and (max-width: 992px) {
+    .v-footer {
+      position: fixed;
+      bottom: 0;
+      left: auto;
+      width: 100%;
+      z-index: 100;
+    }
+  }
 
 </style>
