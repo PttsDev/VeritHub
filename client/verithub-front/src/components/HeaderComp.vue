@@ -91,7 +91,7 @@
 export default {
   name: 'HeaderComp',
   data: () => ({
-    logo: '/logo.png',
+    logo: './logo.png',
     isLogged: false,
 
     notLoggedData: {

@@ -1,12 +1,34 @@
 <template>
-    <div>
+    <div id="principal">
+        <img
+            :src="logoTitulo"
+            id="logoTitulo"/>
+
         <h1>{{title}}</h1>
+
+        <div id="buscar">
         <v-textarea
-          name="searchUniversity"
-          no-resize
-          clearable
-          clear-icon="mdi-close-circle"
+            name="searchUniversity"
+            label="Search for an university"
+            no-resize
+            clearable
+            clear-icon="mdi-close-circle"
+            rows=1
+            columns=1
         ></v-textarea>
+        <v-btn
+            variant="plain"
+            >
+            <a href="/" class="text-primary">
+          <img
+            :src="lupa"
+            alt="Lupa"
+            class="lupa"
+            
+          />
+        </a>
+      </v-btn>
+        </div>
     </div>
 </template>
 
@@ -15,6 +37,8 @@ export default {
     name: 'SearchBar',
     data: () => ({
         title: 'VeritHub',
+        lupa: './lupa.png',
+        logoTitulo: './logoTitulo.png',
     }),
 }
 
@@ -22,7 +46,6 @@ export default {
 
 <style lang="css" scoped>
     h1{
-        position: relative;
         text-align: center;
         top: 150px;
         font-size: 50px;
@@ -30,12 +53,40 @@ export default {
         color: gray;
     }  
 
+    #principal{
+        display: flex;
+        flex-direction: column;
+        margin-top:11%;
+    }
+
+    #buscar{
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        margin-top:11%;
+        
+    }
+
+    #logoTitulo{
+        align-self: center;
+        width: 100px;
+        height: 60px;
+    }
+
     .v-textarea{
-        position: relative;
-        text-align: center;
-        padding-left: 300px;
-        top: 300px;
-        font-size: 50px;
-        width: 80%;
+        margin-left: 30%;
+        margin-right: 25%;
+    }
+
+    .v-btn{
+        margin-top:1%;
+        right:25%;
+    }
+
+    .lupa{
+
+        width: 55px;
+        height: 20px;
+        
     }
 </style>
