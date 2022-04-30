@@ -33,7 +33,7 @@
           class="white--text"
           dark
         >
-          Sing up
+          Sign up
         </v-btn>
 
       </v-toolbar-items>
