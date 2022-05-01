@@ -117,8 +117,8 @@ export default {
 
   }),
   methods: {
-
-
+    
+    
     isLoggedIn: function() {
       // TODO: implementar
       //En este metodo se checkea si el usuario esta loggeado o no, comprobando la cookie de sesion y se actualiza el valor de la variable isLogged
