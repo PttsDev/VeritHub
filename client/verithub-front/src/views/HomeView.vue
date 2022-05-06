@@ -1,6 +1,7 @@
 <template>
   <div>
     <HeaderComp />
+    <SearchBar />
     <FooterComp />
     
   </div>
@@ -11,6 +12,7 @@ import { defineComponent } from 'vue';
 
 // Components
 import FooterComp from '../components/FooterComp.vue';
+import SearchBar from '../components/SearchBar.vue';
 import HeaderComp from '../components/HeaderComp.vue';
 
 export default defineComponent({
@@ -18,6 +20,7 @@ export default defineComponent({
 
   components: {
     FooterComp,
+    SearchBar,
     HeaderComp,
   },
 });
