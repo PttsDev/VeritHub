@@ -17,7 +17,6 @@ const mutations = {
     let userStore = JSON.parse(localStorage.getItem('userStore'))
     userStore.userName  = userName;
     localStorage.setItem('userStore', JSON.stringify(userStore))
-
     state.userName = userName
   },
 
@@ -25,7 +24,6 @@ const mutations = {
     let userStore = JSON.parse(localStorage.getItem('userStore'))
     userStore.photoURL = photoURL;
     localStorage.setItem('userStore', JSON.stringify(userStore))
-
     state.photoURL = photoURL
   },
 
@@ -33,7 +31,6 @@ const mutations = {
     let userStore = JSON.parse(localStorage.getItem('userStore'))
     userStore.email = email;
     localStorage.setItem('userStore', JSON.stringify(userStore))
-
     state.email = email
   },
 
@@ -41,7 +38,6 @@ const mutations = {
     let userStore = JSON.parse(localStorage.getItem('userStore'))
     userStore.isLogged = loggedIn;
     localStorage.setItem('userStore', JSON.stringify(userStore))
-
     state.isLogged = loggedIn
 
   },

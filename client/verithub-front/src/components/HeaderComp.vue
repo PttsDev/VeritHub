@@ -238,7 +238,7 @@
               :="props"
               variant="plain"
             >
-            <div> {{userName}} </div> &nbsp;
+            <div> {{getUserName}} </div> &nbsp;
             <v-avatar>
               <img
                 :src="getUserPhotoURL"
@@ -289,7 +289,8 @@
 
 <script>
 
-  import { mapGetters, mapState, mapActions } from 'vuex';
+import { mapGetters, mapState, mapActions } from 'vuex';
+import authenticationService from '@/services/authenticationService.js';
 
 export default {
   name: 'HeaderComp',
@@ -392,20 +393,24 @@ export default {
       'logout',
     ]),
 
-    login: function() {
+    login: async function() {
       this.loginLoading = true;
-      let userExists = true;
-      //TODO: implementar
+      
       //Se llama a la funcion de login del servidor para comprobar si el usuario existe, si existe devuelve true, los datos y se loggea
       //Si no existe devuelve false y se muestra un mensaje de error, y no se loggea
       //Al final se borra la contraseña de los datos del usuario
 
+      let res = await authenticationService.login({
+        email : this.userData.email,
+        password : this.userData.password
+      });
+      let userExists = res.data.exists;
       if(userExists) {
 
-        // Poner demas datos datos del usuario TODO: CAMBIAR POR LOS RECIBIDOS POR EL SERVIDOR !!! 
-        this.setUserName(this.userData.userName);
-        this.setPhotoURL(this.userData.photoURL);
-        this.setEmail(this.userData.email);
+        // Asignar los demas datos datos del usuario
+        this.setUserName(res.data.name);
+        this.setPhotoURL(res.data.photo);
+        this.setEmail(res.data.email);
         this.setLoggedIn(true);
 
         for(let item in this.userData){
@@ -425,7 +430,7 @@ export default {
       this.loginLoading = false;
     },
 
-    register: function() {
+    register: async function() {
 
       //TODO: implementar
       //Se llama a la funcion de registro del servidor para comprobar si el usuario existe, si existe devuelve true y se muestra un mensaje de error
