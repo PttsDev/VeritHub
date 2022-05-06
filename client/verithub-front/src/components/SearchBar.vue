@@ -3,7 +3,7 @@
     <div id="titulo">
       <img :src="logoTitulo" id="logoTitulo" />
 
-      
+      <h1>{{ title }}</h1>
     </div>
     <div id="buscar">
       <v-textarea
@@ -27,7 +27,7 @@
           v-for="(item, i) in items"
           :key="i"
           :src="item.src"
-            max-height="70%"
+            max-height="30%"
           cover
         ></v-carousel-item>
       </v-carousel>
@@ -41,7 +41,7 @@ export default {
   data: () => ({
     title: "VeritHub",
     lupa: "./lupa.png",
-    logoTitulo: "./logoTitulo2.png",
+    logoTitulo: "./logoTitulo.png",
     items: [
       {
         src: "./1.jpg",
@@ -73,7 +73,7 @@ h1 {
 #principal {
   display: flex;
   flex-direction: column;
-  margin-top: 18%;
+  margin-top: 5%;
 }
 
 #titulo {
@@ -85,13 +85,13 @@ h1 {
   flex-direction: row;
   align-items: stretch;
   z-index: 2;
-  margin-top: 11%;
+  margin-top: 5%;
 }
 
 #logoTitulo {
   align-self: center;
-  width: 150px;
-  height: 100px;
+  width: 100px;
+  height: 60px;
   margin-left: 45%;
 }
 
@@ -110,17 +110,13 @@ h1 {
   height: 20px;
 }
 
-#v-img__img v-img__img--cover{
-  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), "./1.jpg", "./2.jpg", "./3.jpg", "./4.jpg" );      
-}
-
 #carrusel {
   position: relative;
   z-index: 1;
   width: 60%;
   height: 10px;
   margin-left: 20%;
-  margin-top: -35%;
+  margin-top: 2%;
   
 }
 </style>
