@@ -17,7 +17,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-toolbar-items v-if ="!headerData.isLogged">
+      <v-toolbar-items v-if ="!isLogged">
 
         <v-dialog
           v-model="loginDialog"
@@ -238,11 +238,11 @@
               :="props"
               variant="plain"
             >
-            <div> {{userData.userName}} </div> &nbsp;
+            <div> {{getUserName}} </div> &nbsp;
             <v-avatar>
               <img
-                :src="userData.photoURL"
-                :alt="userData.name"
+                :src="getUserPhotoURL"
+                :alt="getUserName"
                 class="profile-image"
               />
             </v-avatar>
@@ -288,13 +288,16 @@
 </template>
 
 <script>
+
+import { mapGetters, mapState, mapActions } from 'vuex';
+import authenticationService from '@/services/authenticationService.js';
+
 export default {
   name: 'HeaderComp',
   data: () => ({
 
     headerData: {
       logo: './logo.png',
-      isLogged: false,
       loggedMenuItems: [
         {
           text: 'Perfil',
@@ -303,6 +306,7 @@ export default {
       ],
     },
 
+    // Datos temporales usados para los formularios, para persistencia se usa store user
     userData: {
       userName: '',
       photoURL: '',
@@ -359,43 +363,74 @@ export default {
 
   }),
 
+  computed: {
+
+    // Los datos del usuario en el store
+
+    ...mapState({
+      isLogged: state => state.user.isLogged
+    }),
+
+    // Se mappean los getters para que llamando a la funcion mappeada se llame al getter del store
+    // Equivalente a getUserName() { return this.$store.getters.userName } ...
+    ...mapGetters('user', {
+      getUserName: 'userName',
+      getUserPhotoURL: 'photoURL',
+      getUserEmail: 'email',
+    }),
+
+  },
+
   methods: {
     
-    login: function() {
+    // Actions del store
+    // map this.setUserName() to this.$store.dispatch('user/setUserName', 'newName') ...
+    ...mapActions('user', [
+      'setUserName',
+      'setPhotoURL',
+      'setEmail',
+      'setLoggedIn',
+      'logout',
+    ]),
+
+    login: async function() {
       this.loginLoading = true;
-      let userExists = false;
-      //TODO: implementar
+      
       //Se llama a la funcion de login del servidor para comprobar si el usuario existe, si existe devuelve true, los datos y se loggea
       //Si no existe devuelve false y se muestra un mensaje de error, y no se loggea
       //Al final se borra la contraseña de los datos del usuario
 
+      let res = await authenticationService.login({
+        email : this.userData.email,
+        password : this.userData.password
+      });
+      let userExists = res.data.exists;
       if(userExists) {
 
-        // Poner demas datos datos del usuario
-        this.userData.password = '';
-        this.userData.userName= 'Juan';
-        this.userData.photoURL= 'https://i.imgur.com/pBcut2e.jpeg';
+        // Asignar los demas datos datos del usuario
+        this.setUserName(res.data.name);
+        this.setPhotoURL(res.data.photo);
+        this.setEmail(res.data.email);
+        this.setLoggedIn(true);
 
+        for(let item in this.userData){
+          this.userData[item] = '';
+        }
 
         this.loginError = false;
         this.loginDialog = false;
-        this.headerData.isLogged = true;
 
       } else {
 
         this.loginError = true;
-        this.isLoggedIn = false;
+        this.setLoggedIn(false);
 
       }
-
-
-      console.log(this.userData.email);
-      console.log(this.userData.password);
 
       this.loginLoading = false;
     },
 
-    register: function() {
+    register: async function() {
 
       //TODO: implementar
       //Se llama a la funcion de registro del servidor para comprobar si el usuario existe, si existe devuelve true y se muestra un mensaje de error
@@ -425,32 +460,12 @@ export default {
       this.registerLoading = true;
     },
 
-    isLoggedIn: function() {
-      // TODO: implementar
-      //En este metodo se checkea si el usuario esta loggeado o no, comprobando la cookie de sesion y se actualiza el valor de la variable isLogged
-      //Si el usuario esta loggeado, se actualiza la variable user con los datos del usuario llamando al método getUserData()
-      this.headerData.isLogged = false;
-    },
-
     getUserData: function() {
       //TODO: implementar
       //En este metodo se obtienen los datos del usuario loggeado o que se acaba de loggear y se actualiza la variable user del store user
     },
-
-    logout: function() {
-      //TODO: implementar
-      //En este metodo se cierra la sesión del usuario, borrando la cookie de logueo y todos los datos correspondientes del store
-
-      for(let item in this.userData){
-        this.userData[item] = '';
-      }
-      this.headerData.isLogged = false;
-    },
   },
 
-  beforeMount() {
-    this.isLoggedIn();
-  }
 }
 </script>
 

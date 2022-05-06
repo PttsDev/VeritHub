@@ -14,5 +14,6 @@ export default {
   data: () => ({
     //
   }),
+  beforeCreate() {this.$store.dispatch('user/initializeStore');},
 }
 </script>
