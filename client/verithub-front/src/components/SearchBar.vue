@@ -21,17 +21,25 @@
         </a>
       </v-btn>
     </div>
-    <div id="carrusel">
-      <v-carousel :show-arrows="false" hide-delimiters id="carrus" cycle>
-        <v-carousel-item
-          v-for="(item, i) in items"
-          :key="i"
-          :src="item.src"
-            max-height="30%"
-          cover
-        ></v-carousel-item>
-      </v-carousel>
+    <h2>{{ favoritas }}</h2>
+    <div id=universidades>
+      <v-btn flat class="unis-btn">
+        <img src= "./ule.jpg" height="67" width="124"/>
+    </v-btn>
+    <div class="espacio"></div>
+    <v-btn flat class="unis-btn">
+        <img src= "./uniovi.jpg" height="120" width="124"/>
+    </v-btn>
+    <div class="espacio"></div>
+    <v-btn flat class="unis-btn">
+        <img src= "./universidadSalamanca.png" height="87" width="124"/>
+    </v-btn>
+    <div class="espacio"></div>
+    <v-btn flat class="unis-btn">
+        <img src= "./universidad-complutense-madrid.jpg" height="99" width="124"/>
+    </v-btn>
     </div>
+
   </div>
 </template>
 
@@ -42,20 +50,7 @@ export default {
     title: "VeritHub",
     lupa: "./lupa.png",
     logoTitulo: "./logoTitulo.png",
-    items: [
-      {
-        src: "./1.jpg",
-      },
-      {
-        src: "./2.jpg",
-      },
-      {
-        src: "./3.jpg",
-      },
-      {
-        src: "./4.jpg",
-      },
-    ],
+    favoritas: "Algunas universidades",
   }),
 };
 </script>
@@ -67,7 +62,15 @@ h1 {
   font-size: 50px;
   font-weight: 100;
   color: gray;
-  -webkit-text-stroke: 1px rgb(222, 233, 224);
+}
+
+h2{
+  text-align: center;
+    font-family: 'Palatino Linotype';
+    font-style: normal;
+    font-weight: 400;
+    color: gray;
+    margin-top:3%
 }
 
 #principal {
@@ -92,7 +95,7 @@ h1 {
   align-self: center;
   width: 100px;
   height: 60px;
-  margin-left: 45%;
+  margin-left: 46.8%;
 }
 
 .v-textarea {
@@ -110,13 +113,22 @@ h1 {
   height: 20px;
 }
 
-#carrusel {
-  position: relative;
-  z-index: 1;
-  width: 60%;
-  height: 10px;
-  margin-left: 20%;
-  margin-top: 2%;
-  
+#universidades{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  margin-left: 35%;
+  margin-top:1%;
 }
+
+.unis-btn{
+  height: 120px;
+  width: 124px;
+}
+
+.espacio{
+  width: 20%;
+}
+
 </style>
