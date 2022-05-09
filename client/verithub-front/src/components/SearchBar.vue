@@ -6,7 +6,7 @@
       <h1>{{ title }}</h1>
     </div>
     <div id="buscar">
-      <v-textarea
+      <v-textarea id="areaBusqueda"
         name="searchUniversity"
         label="Search for an university"
         no-resize
@@ -15,8 +15,8 @@
         rows="1"
         columns="1"
       ></v-textarea>
-      <v-btn variant="plain">
-        <a href="/" class="text-primary">
+      <v-btn variant="plain" @click="this.find()">
+        <a href="/">
           <img :src="lupa" alt="Lupa" class="lupa" />
         </a>
       </v-btn>
@@ -46,7 +46,7 @@
     <div id="select">
     <v-container fluid>
       <v-col class="d-flex" cols="12" sm="6">
-        <v-select :items="items" label="Buscar por:"></v-select>
+        <v-select :items="items" label="Buscar por:" v-model="inicial" id="selected"></v-select>
       </v-col>
     </v-container>
   </div>
@@ -55,6 +55,9 @@
 </template>
 
 <script>
+
+import findInstitutionService from '@/services/findInstitutionService.js';
+
 export default {
   name: "SearchBar",
   data: () => ({
@@ -63,7 +66,36 @@ export default {
     logoTitulo: "./logoTitulo.png",
     favoritas: "Algunas universidades",
     items: ["Name", "Type", "Province", "isPublic", "isPrivate"],
+    inicial: "Name",
   }),
+
+
+  methods: {
+
+    find: async function(){
+
+      let atributo = document.getElementById("areaBusqueda").value;
+      let tipo = document.getElementById("selected").value;
+
+      let res = await findInstitutionService.find({
+        tipo : tipo,
+        atributo : atributo
+      });
+
+      let institutionExists = res.data.exists;
+
+      if(institutionExists) {
+
+        // Asignar los demas datos datos del usuario
+        alert(res.data.data);
+
+      }
+
+      
+  },
+  },
+  
+
 };
 </script>
 
@@ -98,7 +130,7 @@ h2 {
 #select {
   z-index: 4;
   margin-top: -24.2%;
-  margin-left: 55%;
+  margin-left: 54%;
   width: 30%;
 }
 
@@ -106,7 +138,7 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  z-index: 2;
+  
   margin-top: 5%;
 }
 
@@ -122,9 +154,15 @@ h2 {
   margin-right: 25%;
 }
 
+#areaBusqueda {
+  z-index: 2;
+
+}
+
 .v-btn {
   margin-top: 1%;
   right: 25%;
+  z-index: 5;
 }
 
 .lupa {
