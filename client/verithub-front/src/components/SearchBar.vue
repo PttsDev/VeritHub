@@ -22,25 +22,36 @@
       </v-btn>
     </div>
     <h2>{{ favoritas }}</h2>
-    <div id=universidades>
+    <div id="universidades">
       <v-btn flat class="unis-btn">
-        <img src= "./ule.jpg" height="67" width="124"/>
-    </v-btn>
-    <div class="espacio"></div>
-    <v-btn flat class="unis-btn">
-        <img src= "./uniovi.jpg" height="120" width="124"/>
-    </v-btn>
-    <div class="espacio"></div>
-    <v-btn flat class="unis-btn">
-        <img src= "./universidadSalamanca.png" height="87" width="124"/>
-    </v-btn>
-    <div class="espacio"></div>
-    <v-btn flat class="unis-btn">
-        <img src= "./universidad-complutense-madrid.jpg" height="99" width="124"/>
-    </v-btn>
+        <img src="./ule.jpg" height="67" width="124" />
+      </v-btn>
+      <div class="espacio"></div>
+      <v-btn flat class="unis-btn">
+        <img src="./uniovi.jpg" height="120" width="124" />
+      </v-btn>
+      <div class="espacio"></div>
+      <v-btn flat class="unis-btn">
+        <img src="./universidadSalamanca.png" height="87" width="124" />
+      </v-btn>
+      <div class="espacio"></div>
+      <v-btn flat class="unis-btn">
+        <img
+          src="./universidad-complutense-madrid.jpg"
+          height="99"
+          width="124"
+        />
+      </v-btn>
     </div>
-
+    <div id="select">
+    <v-container fluid>
+      <v-col class="d-flex" cols="12" sm="6">
+        <v-select :items="items" label="Buscar por:"></v-select>
+      </v-col>
+    </v-container>
   </div>
+  </div>
+  
 </template>
 
 <script>
@@ -51,6 +62,7 @@ export default {
     lupa: "./lupa.png",
     logoTitulo: "./logoTitulo.png",
     favoritas: "Algunas universidades",
+    items: ["Name", "Type", "Province", "isPublic", "isPrivate"],
   }),
 };
 </script>
@@ -64,13 +76,13 @@ h1 {
   color: gray;
 }
 
-h2{
+h2 {
   text-align: center;
-    font-family: 'Palatino Linotype';
-    font-style: normal;
-    font-weight: 400;
-    color: gray;
-    margin-top:3%
+  font-family: "Palatino Linotype";
+  font-style: normal;
+  font-weight: 400;
+  color: gray;
+  margin-top: 3%;
 }
 
 #principal {
@@ -81,6 +93,13 @@ h2{
 
 #titulo {
   z-index: 3;
+}
+
+#select {
+  z-index: 4;
+  margin-top: -24.2%;
+  margin-left: 55%;
+  width: 30%;
 }
 
 #buscar {
@@ -113,22 +132,21 @@ h2{
   height: 20px;
 }
 
-#universidades{
+#universidades {
   display: flex;
   flex-direction: row;
   align-items: stretch;
   justify-content: center;
   margin-left: 35%;
-  margin-top:1%;
+  margin-top: 1%;
 }
 
-.unis-btn{
+.unis-btn {
   height: 120px;
   width: 124px;
 }
 
-.espacio{
+.espacio {
   width: 20%;
 }
-
 </style>
