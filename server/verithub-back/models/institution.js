@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   institution.init({
     name: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      unique: true
     },
     type: {
       allowNull: false,
