@@ -19,9 +19,11 @@ app.use(express.json());
 
 const register = require('./routes/register');
 const login = require('./routes/login');
+const institution = require('./routes/institution');
 
 app.use('/register', register);
 app.use('/login', login);
+app.use('/institution', institution);
 
 // get route
 app.get('/', function(req, res, next) {

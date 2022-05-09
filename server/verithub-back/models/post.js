@@ -14,10 +14,6 @@ module.exports = (sequelize, DataTypes) => {
         as: 'user',
         foreignKey: 'userID'
         });
-      post.belongsTo(models.title, {
-        as: 'title',
-        foreignKey: 'titleID'
-      });
       post.belongsTo(models.course, {
         as: 'course',
         foreignKey: 'courseID'
