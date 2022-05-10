@@ -81,14 +81,12 @@ export default {
 
     find: async function(){
 
-      let res = await findInstitutionService.find({
+      await findInstitutionService.find({
         tipo : this.tipo,
         atributo : this.textoBusqueda
-      });
-      console.log(res.data);
-      let institutionExists = res.data.exists;
-
-      if(institutionExists) {
+      }).then( res=>{
+        let institutionExists = res.data.exists;
+        if(institutionExists) {
 
         //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
         //que hay en la base de datos con esas caracteristicas
@@ -103,9 +101,10 @@ export default {
       }else{
         alert("No existe");
       }
-
-      
-  },
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
   },
   
 
