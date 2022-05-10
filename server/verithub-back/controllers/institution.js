@@ -22,7 +22,7 @@ module.exports = {
             }
             res.status(200).send(response)
         })
-        .catch(error => res.status(400).send(error));
+        .catch(error => res.status(400).send({error: "imposible de crear"}));
     },
 
     create(params, res){
