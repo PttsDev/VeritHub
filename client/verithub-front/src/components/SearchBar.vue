@@ -10,13 +10,14 @@
         name="searchUniversity"
         label="Search for an university"
         no-resize
+        v-model="textoBusqueda"
         clearable
         clear-icon="mdi-close-circle"
         rows="1"
         columns="1"
       ></v-textarea>
       <v-btn variant="plain" @click="this.find()">
-        <a href="/">
+        <a>
           <img :src="lupa" alt="Lupa" class="lupa" />
         </a>
       </v-btn>
@@ -46,7 +47,7 @@
     <div id="select">
     <v-container fluid>
       <v-col class="d-flex" cols="12" sm="6">
-        <v-select :items="items" label="Buscar por:" v-model="inicial" id="selected"></v-select>
+        <v-select :items="tipos" label="Buscar por:" v-model="tipo" id="selected"></v-select>
       </v-col>
     </v-container>
   </div>
@@ -56,6 +57,7 @@
 
 <script>
 
+import { mapActions } from 'vuex';
 import findInstitutionService from '@/services/findInstitutionService.js';
 
 export default {
@@ -65,30 +67,41 @@ export default {
     lupa: "./lupa.png",
     logoTitulo: "./logoTitulo.png",
     favoritas: "Algunas universidades",
-    items: ["Name", "Type", "Province", "isPublic", "isPrivate"],
-    inicial: "Name",
+    tipos: ["Name", "Type", "Province", "Stars", "Public"], //Cambiar la forma de buscar
+    textoBusqueda: "",
+    tipo:"Name",
   }),
 
 
   methods: {
 
+    ...mapActions('institutions', [
+      'setFoundInstitutions',
+    ]),
+
     find: async function(){
 
-      let atributo = document.getElementById("areaBusqueda").value;
-      let tipo = document.getElementById("selected").value;
-
       let res = await findInstitutionService.find({
-        tipo : tipo,
-        atributo : atributo
+        tipo : this.tipo,
+        atributo : this.textoBusqueda
       });
-
+      console.log(res.data);
       let institutionExists = res.data.exists;
 
       if(institutionExists) {
 
-        // Asignar los demas datos datos del usuario
-        alert(res.data.data);
+        //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
+        //que hay en la base de datos con esas caracteristicas
+        let instituciones = res.data.institutions;
+        for(let i = 0; i < instituciones.length; i++){
+          
+          alert(instituciones[i].name);
+        }
 
+        this.setFoundInstitutions(instituciones);
+
+      }else{
+        alert("No existe");
       }
 
       

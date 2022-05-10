@@ -13,7 +13,7 @@ module.exports = {
         })
         .then(institutions => {
             let response = {
-                data:institutions,
+                institutions:institutions,
                 exists: true,
             }
 
