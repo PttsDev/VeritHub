@@ -143,6 +143,15 @@
             >
               <v-text-field
                 class="card-form-input"
+                v-model="registrationData.username"
+                label="Nombre de usuario"
+                type="text"
+                autofocus
+                required
+                :rules="usernameRules"
+              ></v-text-field>
+              <v-text-field
+                class="card-form-input"
                 v-model="registrationData.name"
                 label="Nombre"
                 type="text"
@@ -359,6 +368,10 @@ export default {
       lastname => !!lastname || 'Este campo es requerido',
       lastname => lastname.length >= 3 || 'Los apellidos deben tener al menos 3 caracteres'
     ],
+    usernameRules: [
+      username => !!username || 'Este campo es requerido',
+      username => username.length >= 3 || 'El nombre de usuario debe tener al menos 3 caracteres'
+    ],
 
 
   }),
@@ -400,15 +413,23 @@ export default {
       //Si no existe devuelve false y se muestra un mensaje de error, y no se loggea
       //Al final se borra la contraseña de los datos del usuario
 
-      let res = await authenticationService.login({
+      await authenticationService.login({
         email : this.userData.email,
         password : this.userData.password
-      });
-      let userExists = res.data.exists;
-      if(userExists) {
+      }).then( res => {
 
-        // Asignar los demas datos datos del usuario
-        this.setUserName(res.data.name);
+        /*
+          {
+          "email": "email@email.es",
+          "username": "pedrito12",
+          "fullName": "Pedro Picapiedra",
+          "photo": "https://i.pinimg.com/736x/1c/b3/77/1cb37778107856d56e05d378db46eda9.jpg",
+          "isAdmin": false,
+          "exists": true
+          }
+        */
+        // Asignar los demas datos datos del usuario TODO: DEMAS DATOS
+        this.setUserName(res.data.username);
         this.setPhotoURL(res.data.photo);
         this.setEmail(res.data.email);
         this.setLoggedIn(true);
@@ -420,12 +441,13 @@ export default {
         this.loginError = false;
         this.loginDialog = false;
 
-      } else {
+
+      }).catch(() => {
 
         this.loginError = true;
         this.setLoggedIn(false);
 
-      }
+      });
 
       this.loginLoading = false;
     },
@@ -438,27 +460,31 @@ export default {
       //Al final se borra los datos de userReigstration
 
       this.registerLoading = true;
-      let userExists = true;
 
-
-      if(userExists) {
-        this.registerError = true;
-        this.registerDialog = true;
-        this.headerData.isLogged = false;
-        this.registerErrorMsg = 'El usuario con este email ya existe.';
+      await authenticationService.register({
+          name : this.registrationData.name,
+          lastname : this.registrationData.lastname,
+          username : this.registrationData.username,
+          email: this.registrationData.email,
+          password: this.registrationData.password,
+          
+      }).then( () => {
+          
+          // Si se ha completado la peticion correctamente, se borran los datos del formulario
+          this.registerError = false;
+          this.registerDialog = false;
+          
+          for(let item in this.registrationData)
+            this.registrationData[item] = '';
+      }).catch(() => {
+          // Si da error, avisa al usuario
+          this.registerError = true;
+          this.registerDialog = true;
+          this.headerData.isLogged = false;
+          this.registerErrorMsg = 'El usuario con este email ya existe.';
+      });
         this.registerLoading = false;
-        return;
-      } 
-
-      // Si no existe procedo con el registro
-      //TODO:
-
-      this.registerError = false;
-      this.registerDialog = false;
-
-
-      this.registerLoading = true;
-    },
+      },
 
     getUserData: function() {
       //TODO: implementar
