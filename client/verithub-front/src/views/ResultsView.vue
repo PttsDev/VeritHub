@@ -1,24 +1,26 @@
 <template>
   <!--Clave API: AIzaSyD_IlgiAW6kpxobip8z7gW6lcPoJsK9yHA-->
-  <div id="initial">
+  <div class="initial">
     <HeaderComp />
-    <div id="main-body-conteiner">
-      <div id="search-bar-container">
+    <div class="main-body-conteiner">
+      <div class="search-bar-container">
         <!--Aquí vendríala search bar-->
+        <h2>ESTO ES LA BARRA DE NAVEGACIÓN</h2>
       </div>
-      <div id="content-container">
-        <div id="results-container">
+      <div class="content-container">
+        <nav class="results-container">
           <!--Aquí viene la lista de resultados-->
           <SearchLabelComp />
           <SearchLabelComp />
           <SearchLabelComp />
-        </div>
-        <div id="map-container">
+        </nav>
+        <div class="map-container">
           <!--Aquí viene el mapa-->
+          <h2>ESTO ES EL MAPA</h2>
         </div>
       </div>
     </div>
-    <FooterComp />
+   <FooterComp />
   </div>
 </template>
 
@@ -37,6 +39,9 @@ export default defineComponent({
     FooterComp,
     HeaderComp,
     SearchLabelComp,
+  },
+  data: ()=>{
+
   },
 });
 </script>
@@ -59,45 +64,53 @@ export default defineComponent({
     padding:0;
   }
 
-  #initial {
-    display: flex;
-  }
-
-  #main-body-container {
+  .initial {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 
-  #search-bar-container {
+  .main-body-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search-bar-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     /*La altura debe ser la justa para que entren los elementos en linea (row)*/
-    height:20%;
+
+    /*Test */
+    border: 3px solid red;
   }
 
-  #content-container {
+  .content-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
     /*La altura debe ser la justa para que entren los elementos en linea (row)*/
-    height:80%;
   }
 
-  #results-container {
+  .content-container > * {
+    width: 50%;
+  }
+
+  .map-container{
+    /*Test */
+    border: 3px solid greenyellow;
+  }
+
+  .results-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: aqua;
+    gap: 0.5rem;
     height: 100%;
+    
+    /*Test */
+    border: 3px solid black;
   }
 
-  #map-container {
+  .map-container {
     display: flex;
   }
 

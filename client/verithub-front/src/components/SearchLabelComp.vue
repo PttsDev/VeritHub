@@ -9,17 +9,17 @@ Partes:
 -->
 
 <template>
-    <div id="initial">
-        <div id="show-images">
+    <div class="label">
+        <div class="show-images">
             <img class="center-img" src="./1.jpg">
             
         </div>
-        <div id="show-info">
+        <div class="show-info">
             <!--Contiene:
                 Título, Distancia, Estrellas, Opiniones.-->
 
             <h2 class="label-title">Nombre de la Universidad</h2>
-            <v-rating class="star-rating" value="3" hover color="warning" ></v-rating>
+            <v-rating class="star-rating" value="3" size="20" hover color="warning" ></v-rating>
         </div>
 
     </div>
@@ -29,22 +29,40 @@ Partes:
 </script>
 
 <style>
-    #initial {
+    .label {
         display: flex;
         flex-direction: row;
+        height: 125px;
+        margin:3px;
+        padding:3px;
+        background-color: lightgray;
+        border-radius: 3px;
+        border: 1px solid black;
+    }
+
+    .label > *{
+        display: flex;
+        flex-grow: 1;   /*Para que se extienda todo a lo ancho*/
+    }
+
+    .show-images {
         justify-content: center;
         align-items: center;
-        width: 50%;
-        height: 25%;
-    }
-    #show-images {
         width: 33%;
     }
-    #show-info {
-        width: 66%;
-        display: flex;
-        flex-direction: column; /*para stackear los elementos*/
+    .show-images img{
+        border-radius: 5px;
     }
+
+    .show-info {
+        flex-direction: column; /*para stackear los elementos*/
+        width: 66%;
+    }
+
+    .show-info h2{
+        font-size: 18px;
+    }
+
     .center-img{
         width: 100%;
         height: 100%;
