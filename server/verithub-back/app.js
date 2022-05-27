@@ -20,10 +20,13 @@ app.use(express.json());
 const register = require('./routes/register');
 const login = require('./routes/login');
 const institution = require('./routes/institution');
+const user = require('./routes/user');
 
 app.use('/register', register);
 app.use('/login', login);
 app.use('/institution', institution);
+app.use('/user', user);
+
 
 // get route
 app.get('/', function(req, res, next) {

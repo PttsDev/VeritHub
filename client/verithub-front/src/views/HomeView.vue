@@ -1,9 +1,6 @@
 <template>
   <div>
-    <HeaderComp />
     <SearchBar />
-    <FooterComp />
-    
   </div>
 </template>
 
@@ -11,17 +8,15 @@
 import { defineComponent } from 'vue';
 
 // Components
-import FooterComp from '../components/FooterComp.vue';
+
 import SearchBar from '../components/SearchBar.vue';
-import HeaderComp from '../components/HeaderComp.vue';
+
 
 export default defineComponent({
   name: 'HomeView',
 
   components: {
-    FooterComp,
     SearchBar,
-    HeaderComp,
   },
 });
 </script>
@@ -41,7 +36,5 @@ export default defineComponent({
   body {
     font-family: 'Palatino Linotype', 'Times New Roman', serif;
   }
-
-
 
 </style>
