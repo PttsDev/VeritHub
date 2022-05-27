@@ -27,6 +27,11 @@ const routes = [
     name: 'profile',
     component: () => import('../views/ProfileView.vue'),
     beforeEnter: isAuthenticated
+  },
+  {
+    path: '/institution',
+    name: 'institution',
+    component: () => import('../views/InstitutionsView.vue'),
   }
 ]
 
