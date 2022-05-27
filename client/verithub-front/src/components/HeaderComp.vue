@@ -266,7 +266,7 @@
               <v-list-item-title>
                 <v-btn
                   :href="item.href"
-                  target="_blank"
+                  target="_self"
                   class="white--text"
                   dark
                   variant="text"
@@ -278,7 +278,7 @@
             <v-list-item>
               <v-list-item-title>
                 <v-btn
-                  @click="this.logout()"
+                  @click="this.endSession(); "
                   class="white--text"
                   dark
                   variant="text"
@@ -390,6 +390,8 @@ export default {
       getUserName: 'userName',
       getUserPhotoURL: 'photoURL',
       getUserEmail: 'email',
+      getFullName: 'fullName',
+      getPassword: 'password',
     }),
 
   },
@@ -402,6 +404,8 @@ export default {
       'setUserName',
       'setPhotoURL',
       'setEmail',
+      'setFullName',
+      'setPassword',
       'setLoggedIn',
       'logout',
     ]),
@@ -429,9 +433,12 @@ export default {
           }
         */
         // Asignar los demas datos datos del usuario TODO: DEMAS DATOS
+        console.log(res.data.fullName)
         this.setUserName(res.data.username);
         this.setPhotoURL(res.data.photo);
         this.setEmail(res.data.email);
+        this.setFullName(res.data.fullName);
+        this.setPassword(this.userData.password);
         this.setLoggedIn(true);
 
         for(let item in this.userData){
@@ -485,6 +492,11 @@ export default {
       });
         this.registerLoading = false;
       },
+    
+    endSession: function() {
+      this.logout();
+      window.location.href = '/';
+    },
 
     getUserData: function() {
       //TODO: implementar
