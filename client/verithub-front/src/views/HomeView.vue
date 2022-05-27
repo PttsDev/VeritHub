@@ -3,7 +3,6 @@
     <HeaderComp />
     <SearchBar />
     <FooterComp />
-    <StarsComp />
     
   </div>
 </template>
@@ -15,7 +14,6 @@ import { defineComponent } from 'vue';
 import FooterComp from '../components/FooterComp.vue';
 import SearchBar from '../components/SearchBar.vue';
 import HeaderComp from '../components/HeaderComp.vue';
-import StarsComp from '../components/StarsComp.vue';
 
 export default defineComponent({
   name: 'HomeView',
@@ -24,7 +22,6 @@ export default defineComponent({
     FooterComp,
     SearchBar,
     HeaderComp,
-    StarsComp,
   },
 });
 </script>
