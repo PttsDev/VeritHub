@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      subject.belongsTo(models.course, {
+        as: 'course',
+        foreignKey: 'courseID'
+      });
     }
   }
   subject.init({
@@ -30,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     stars: {
       allowNull: false,
       defaultValue: 0,
+      type: DataTypes.INTEGER
+    },
+    courseID: {
+      allowNull: false,
       type: DataTypes.INTEGER
     },
   }, {
