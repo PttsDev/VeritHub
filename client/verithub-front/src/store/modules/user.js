@@ -2,13 +2,17 @@ const state = () => ({
   userName: null,
   photoURL: null,
   email: null,
+  fullName: null,
+  password: null,
   isLogged: false,
 })
 
 const getters = {
   userName: state => state.userName,
   photoURL: state => state.photoURL,
-  email: state => state.email
+  email: state => state.email,
+  fullName: state => state.fullName,
+  password: state => state.password,
 }
 
 // Llamarlas a través de actions !!
@@ -42,6 +46,19 @@ const mutations = {
 
   },
 
+  setFullName(state, fullName) {
+    let userStore = JSON.parse(localStorage.getItem('userStore'))
+    userStore.fullName = fullName;
+    localStorage.setItem('userStore', JSON.stringify(userStore))
+    state.fullName = fullName
+  },
+  setPassword(state, password) {
+    let userStore = JSON.parse(localStorage.getItem('userStore'))
+    userStore.password = password;
+    localStorage.setItem('userStore', JSON.stringify(userStore))
+    state.password = password
+  },
+
   initializeStore(state) {
     if (localStorage.getItem('userStore')) {
       let userStore = JSON.parse(localStorage.getItem('userStore'))
@@ -49,12 +66,16 @@ const mutations = {
       state.photoURL = userStore.photoURL
       state.email = userStore.email
       state.isLogged = userStore.isLogged
+      state.fullName = userStore.fullName
+      state.password = userStore.password
     } else {
       let userStore = {
         userName: null,
         photoURL: null,
         email: null,
-        isLogged: false
+        isLogged: false,
+        fullName: null,
+        password: null,
       }
       localStorage.setItem('userStore', JSON.stringify(userStore))
     }
@@ -66,11 +87,15 @@ const mutations = {
     userStore.photoURL = null;
     userStore.email = null;
     userStore.isLogged = false;
+    userStore.fullName = null;
+    userStore.password = null;
     localStorage.setItem('userStore', JSON.stringify(userStore));
     state.userName = null;
     state.photoURL = null;
     state.email = null;
     state.isLogged = false;
+    state.fullName = null;
+    state.password = null;
   }
 }
 
@@ -95,6 +120,13 @@ const actions = {
 
   setLoggedIn({ commit }, loggedIn) {
     commit('setLoggedIn', loggedIn)
+  },
+
+  setFullName({ commit }, fullName) {
+    commit('setFullName', fullName)
+  },
+  setPassword({ commit }, password) {
+    commit('setPassword', password)
   },
 
   initializeStore({ commit }) {

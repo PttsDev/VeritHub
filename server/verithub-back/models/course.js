@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      course.belongsTo(models.institution, {
+        as: 'institution',
+        foreignKey: 'institutionID'
+      });
     }
   }
   course.init({
@@ -34,6 +37,14 @@ module.exports = (sequelize, DataTypes) => {
     numStudents: {
       allowNull: false,
       defaultValue: 0,
+      type: DataTypes.INTEGER
+    },
+    photo: {
+      allowNull: true,
+      type: DataTypes.TEXT('medium')
+    },
+    institutionID: {
+      allowNull: false,
       type: DataTypes.INTEGER
     },
   }, {

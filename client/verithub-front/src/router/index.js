@@ -1,5 +1,12 @@
+import store from '@/store'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+
+const isAuthenticated = (to, from, next) => {
+  let logged = store.state.user.isLogged;
+  if (logged) next()
+  else next({name: 'home'})
+}
 
 const routes = [
   {
@@ -20,6 +27,12 @@ const routes = [
     name: 'results',
     //Añadir ResultsView
     component: () => import(/* webpackChunkName: "about" */ '../views/ResultsView.vue')
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/ProfileView.vue'),
+    beforeEnter: isAuthenticated
   }
 ]
 
