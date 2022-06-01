@@ -27,7 +27,18 @@ const routes = [
     name: 'profile',
     component: () => import('../views/ProfileView.vue'),
     beforeEnter: isAuthenticated
-  }
+  },
+  {
+    path: '/forum/:id',
+    name: 'forum',
+    component: () => import('../views/ForumView.vue'),
+  },
+  {
+    path: '/forum/:idForum/:idThread',
+    name: 'thread',
+    component: () => import('../views/ThreadView.vue'),
+  },
+
 ]
 
 const router = createRouter({
