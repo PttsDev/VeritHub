@@ -1,22 +1,37 @@
 <template>
   <div>
     Este es el foro numero {{ idForum }}
+    <PostComp :postData="posts[0]"></PostComp>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import PostComp from '../components/PostComp.vue';
 
 export default defineComponent({
   name: 'ForumView',
 
   components: {
+    PostComp,
   },
+
   data() {
     return {
 
       // Con este id se obtienen los datos del foro, incluidos los hilos y se forman los componentes necesarios
       idForum: this.$route.params.id,
+
+      // Rellenar el array con datos reales de database
+      posts: [
+            { 
+              postTitle: "POST DE PRUEBA",
+              postURL: "/forum/"+this.$route.params.id+"/1",
+              postDescription: "Este es un post de prueba",
+              postDate: "01/01/2020",
+              postAuthor: "Juan",
+            }
+      ],
     }
   },
   methods: {
