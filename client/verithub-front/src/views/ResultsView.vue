@@ -8,12 +8,11 @@
         <h2>ESTO ES LA BARRA DE NAVEGACIÓN</h2>
       </div>
       <div class="content-container">
-        <nav class="results-container">
-          <!--Aquí viene la lista de resultados-->
-          <SearchLabelComp />
-          <SearchLabelComp />
-          <SearchLabelComp />
-        </nav>
+        <ol>
+          <li v-for="(univ, index) in this.uni" :key="index">
+            <SearchLabelComp :title="univ"/>
+          </li>
+        </ol>
         <div class="map-container">
           <!--Aquí viene el mapa-->
           <h2>ESTO ES EL MAPA</h2>
@@ -41,9 +40,12 @@ export default defineComponent({
     SearchLabelComp,
   },
   data: ()=>{
-
+    return {
+      uni:["uni1","uni2","uni3","uni4" ]
+    }
   },
-});
+  },
+);
 </script>
 
 <style lang="css">

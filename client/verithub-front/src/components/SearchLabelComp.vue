@@ -12,13 +12,12 @@ Partes:
     <div class="label">
         <div class="show-images">
             <img class="center-img" src="./1.jpg">
-            
         </div>
         <div class="show-info">
             <!--Contiene:
                 Título, Distancia, Estrellas, Opiniones.-->
 
-            <h2 class="label-title">Nombre de la Universidad</h2>
+            <h2 class="label-title">{{title}}</h2>
             <v-rating class="star-rating" value="3" size="20" hover color="warning" ></v-rating>
         </div>
 
@@ -26,6 +25,26 @@ Partes:
 </template>
 
 <script>
+    export default {
+        name: 'SearchLabelComp',
+        props: {
+            title: {
+                type: String,
+                required: true
+            }
+        },
+        data: () => {
+            return {
+                stars:5,
+                rating:0,
+            }
+        },
+        methods: {
+            getUniversityData: function () {
+            }
+        }
+    }
+
 </script>
 
 <style>
