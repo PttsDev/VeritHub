@@ -39,7 +39,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 30px;;
+  margin-left: 13%;
 }	
 
 #text {
