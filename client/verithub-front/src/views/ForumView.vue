@@ -1,19 +1,21 @@
 <template>
   <div>
     Este es el foro numero {{ idForum }}
-    <PostComp :postData="posts[0]"></PostComp>
+    <div id="posts">
+      <PostButtonComp v-for="post in posts" :postData="post" :key="post"></PostButtonComp>
+    </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import PostComp from '../components/PostComp.vue';
+import PostButtonComp from '../components/PostButtonComp.vue';
 
 export default defineComponent({
   name: 'ForumView',
 
   components: {
-    PostComp,
+    PostButtonComp,
   },
 
   data() {
@@ -30,6 +32,13 @@ export default defineComponent({
               postDescription: "Este es un post de prueba",
               postDate: "01/01/2020",
               postAuthor: "Juan",
+            },
+            { 
+              postTitle: "POST DE PRUEBA 2",
+              postURL: "/forum/"+this.$route.params.id+"/2",
+              postDescription: "Este es un post de prueba 2",
+              postDate: "01/01/2020",
+              postAuthor: "Jose",
             }
       ],
     }
