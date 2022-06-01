@@ -23,6 +23,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
+    path: '/results',
+    name: 'results',
+    //Añadir ResultsView
+    component: () => import(/* webpackChunkName: "about" */ '../views/ResultsView.vue')
+  },
+  {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/ProfileView.vue'),
