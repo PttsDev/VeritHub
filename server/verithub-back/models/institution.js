@@ -38,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
       type: DataTypes.INTEGER
     },
+    photo: {
+      allowNull: true,
+      type: DataTypes.TEXT('medium')
+    },
   }, {
     sequelize,
     modelName: 'institution',

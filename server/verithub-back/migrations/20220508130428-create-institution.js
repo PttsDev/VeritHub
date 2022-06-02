@@ -32,6 +32,10 @@ module.exports = {
         defaultValue: 0,
         type: Sequelize.INTEGER
       },
+      photo: {
+        allowNull: true,
+        type: Sequelize.TEXT('medium')
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
