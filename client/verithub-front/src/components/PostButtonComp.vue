@@ -5,9 +5,8 @@
     <div id="dataDiv">
       <p> {{postTitle}} </p>
       <a :href="postURL"> IR </a>
-      <p> {{postDescription }} </p>
       <div id="creationData"> 
-        <p> {{postDate}} </p>
+        <p> {{postDate}} </p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <p> {{postAuthor }} </p>
       </div>
 
@@ -24,11 +23,10 @@ export default defineComponent({
 
   data(){ 
     return {
-      postTitle: this.postData.postTitle,
-      postURL: this.postData.postURL,
-      postDescription: this.postData.postDescription,
-      postDate: this.postData.postDate,
-      postAuthor: this.postData.postAuthor,
+      postTitle: this.postData.title,
+      postURL: this.postData.url,
+      postDate: new Date(this.postData.createdAt).toLocaleDateString("es-ES"),
+      postAuthor: this.postData.username,
     }
   },
   methods: {
@@ -46,33 +44,30 @@ export default defineComponent({
 
   /* Un cuadrado que va a albergar todos los datos */
   #mainDiv {
-    width: 100%;
-    height: 100%;
-
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
     align-items: center;
     align-self: center;
-
-    margin-top: 10px;
     border-width: 1px;
+    width: 80%;
   }
 
   #dataDiv {
-    background-color: #f2f2f2;
+    background-color: white;
     border-color: #000;
     border-style: solid;
     border-width: 1px;
 
-    width: 50%;
-    height: 100%;
+    width: 100%;
+  
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     align-self: center;
+    padding: 0px 10vw;
   }
 
   #creationData {

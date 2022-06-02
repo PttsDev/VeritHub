@@ -29,12 +29,12 @@ const routes = [
     beforeEnter: isAuthenticated
   },
   {
-    path: '/forum/:id',
+    path: '/:type([s|c])/forum/:id',
     name: 'forum',
     component: () => import('../views/ForumView.vue'),
   },
   {
-    path: '/forum/:idForum/:idThread',
+    path: '/forum/:type([s|c])/:idForum/:idThread',
     name: 'thread',
     component: () => import('../views/ThreadView.vue'),
   },

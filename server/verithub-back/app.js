@@ -21,11 +21,15 @@ const register = require('./routes/register');
 const login = require('./routes/login');
 const institution = require('./routes/institution');
 const user = require('./routes/user');
+const post = require('./routes/post');
+const comment = require('./routes/comment');
 
 app.use('/register', register);
 app.use('/login', login);
 app.use('/institution', institution);
 app.use('/user', user);
+app.use('/post', post);
+app.use('/comment', comment);
 
 
 // get route
