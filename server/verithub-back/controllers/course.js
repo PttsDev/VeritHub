@@ -24,6 +24,27 @@ module.exports = {
         .catch(error => res.status(400).send({error: "imposible de encontrar"}));
     },
 
+    findCourse(params, res){
+        let courseName = params.name
+        course.findCourse({
+            where: {
+                name: courseName,
+            }
+        })
+        .then(courses => {
+            let response = {
+                courses:courses,
+                exists: true,
+            }
+
+            if(courses.length == 0){
+                response.exists = false
+            }
+            res.status(200).send(response)
+        })
+        .catch(error => res.status(400).send({error: "imposible de encontrar"}));
+    },
+
     create(params, res){
         course.create({
             name: params.name,
