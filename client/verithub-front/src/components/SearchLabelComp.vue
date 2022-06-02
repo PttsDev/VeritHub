@@ -17,33 +17,44 @@ Partes:
             <!--Contiene:
                 Título, Distancia, Estrellas, Opiniones.-->
 
-            <h2 class="label-title">{{title}}</h2>
-            <v-rating class="star-rating" value="3" size="20" hover color="warning" ></v-rating>
+            <h2 class="label-title">{{this.title}}</h2>
+            <StarsComp :stars="this.stars"/>
+            <a href={{this.url}}>Opiniones</a>
         </div>
+        <!--TODO: LAbel debe mandar a la pagina de la univesidad-->
+        <!--TODO: Enlace a las opiniones de la universidad-->
 
     </div>
 </template>
 
 <script>
-    export default {
+    import StarsComp from '../components/StarsComp.vue';
+    import { defineComponent } from 'vue';
+
+    export default defineComponent({
         name: 'SearchLabelComp',
+        components: {
+            StarsComp,
+        },
         props: {
             title: {
                 type: String,
                 required: true
-            }
+            }, 
+            stars: {
+                type: Number,
+                required: true
+            },
         },
-        data: () => {
+        data () {
             return {
-                stars:5,
-                rating:0,
+                url:'/profile?id='+this.title, 
             }
         },
         methods: {
-            getUniversityData: function () {
-            }
+            
         }
-    }
+    });
 
 </script>
 

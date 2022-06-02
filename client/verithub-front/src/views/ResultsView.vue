@@ -1,7 +1,6 @@
 <template>
   <!--Clave API: AIzaSyD_IlgiAW6kpxobip8z7gW6lcPoJsK9yHA-->
   <div class="initial">
-    <HeaderComp />
     <div class="main-body-conteiner">
       <div class="search-bar-container">
         <!--Aquí vendríala search bar-->
@@ -9,8 +8,8 @@
       </div>
       <div class="content-container">
         <ol>
-          <li v-for="(univ, index) in this.uni" :key="index">
-            <SearchLabelComp :title="univ"/>
+          <li v-for="(univ, index) in this.institutions" :key="index">
+            <SearchLabelComp :title="univ.name" :stars="univ.stars"/>
           </li>
         </ol>
         <div class="map-container">
@@ -28,7 +27,6 @@ import { defineComponent } from 'vue';
 
 // Components
 import FooterComp from '../components/FooterComp.vue';
-import HeaderComp from '../components/HeaderComp.vue';
 import SearchLabelComp from '../components/SearchLabelComp.vue';
 
 export default defineComponent({
@@ -36,12 +34,17 @@ export default defineComponent({
 
   components: {
     FooterComp,
-    HeaderComp,
     SearchLabelComp,
   },
   data: ()=>{
-    return {
-      uni:["uni1","uni2","uni3","uni4" ]
+    return{ 
+      //institutions : this.$store.state.institutions.foundInstitutions,
+      institutions : [
+        {name:"Salamanca", stars:4},
+        {name:"Leon", stars:5},
+        {name:"Burgos", stars:1},
+        {name:"Madrid", stars:2},
+      ],
     }
   },
   },
