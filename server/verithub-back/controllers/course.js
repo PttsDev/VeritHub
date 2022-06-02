@@ -4,10 +4,10 @@ const course = require('../models').course;
 module.exports = {
 
     findAll(params, res){
-        let id = params.id
-        institution.findAll({
+        let institutionID = params.institutionID
+        course.findAll({
             where: {
-                [id]: id,
+                institutionID: institutionID,
             }
         })
         .then(courses => {
@@ -31,6 +31,7 @@ module.exports = {
             minGrade: params.minGrade,
             stars: params.stars,
             numStudents: params.numStudents,
+            institutionID: params.institutionID,
         })
         .then(courses => {
             res.status(200).send(courses)
