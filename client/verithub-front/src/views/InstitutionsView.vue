@@ -3,75 +3,107 @@
     <label id="icon">
       <img :src="image" alt="imagen" class="imagen" />
       <div id="nombre">
-        {{this.find()}}
+        {{ institucion.name }}
       </div>
       <StarsComp id="stars" />
     </label>
-    <label id="comments"> 
-      comentarios 
-    </label>
-    <label id="signatures">
-      asignaturas
-      <div id="buscar">
-        <v-textarea
-          id="areaBusqueda"
-          name="searchUniversity"
-          label="Search course"
-          no-resize
-          v-model="textoBusqueda"
-          rows="1"
-          columns="1"
-        ></v-textarea>
-        <v-btn variant="plain" @click="this.find()">
-          <a>
-            <img :src="lupa" alt="Lupa" class="lupa" />
-          </a>
-        </v-btn>
-      </div>
+    <label id="comments"> comentarios </label>
+    <label id="courses">
+        Courses
+        <div id="buscar">
+          <v-textarea
+            id="areaBusqueda"
+            name="searchUniversity"
+            label="Search course"
+            no-resize
+            v-model="textoBusqueda"
+            rows="1"
+            columns="1"
+          ></v-textarea>
+          <v-btn variant="plain" @click="this.find()">
+            <a>
+              <img :src="lupa" alt="Lupa" class="lupa" />
+            </a>
+          </v-btn>
+        </div>
+        <div v-for="course in courses" :key="course" id="course">
+          <img :src="course.photo" class="coursePhoto"/>
+          <div id= "courseInfo">
+            {{ course.name }} <StarsComp /> {{ course.price }} €/cts &nbsp;&nbsp;&nbsp; Nota de corte: {{ course.minGrade }}<br />
+          </div> 
+        </div>
     </label>
   </div>
 </template>
 
 <script>
 import StarsComp from "../components/StarsComp.vue";
-import { defineComponent } from 'vue';
-import findInstitutionService from '@/services/findInstitutionService.js';
+import { defineComponent } from "vue";
+import findInstitutionService from "@/services/findInstitutionService.js";
+import findCoursesService from "@/services/findCoursesService.js";
 
 export default defineComponent({
   name: "InstitutionsView",
 
   data() {
-    return{
+    return {
       image: "/1.jpg",
-    lupa: "/lupa.png",
-    idInstitution: this.$route.params.id,
-    }
+      lupa: "/lupa.png",
+      idInstitution: this.$route.params.id,
+      institucion: [],
+      courses: [],
+    };
   },
   components: {
     StarsComp,
   },
 
+  mounted() {
+    this.find();
+    this.findCourses();
+  },
+
   methods: {
-    find: async function(){
+    find: async function () {
+      await findInstitutionService
+        .find({
+          tipo: "id",
+          atributo: this.idInstitution,
+        })
+        .then((res) => {
+          let institutionExists = res.data.exists;
+          if (institutionExists) {
+            //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades
+            //que hay en la base de datos con esas caracteristicas
+            let instituciones = res.data.institutions;
+            this.institucion = instituciones[0];
+          } else {
+            alert("No existe");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
 
-      await findInstitutionService.find({
-        tipo : "id",
-        atributo : this.idInstitution
-      }).then( res=>{
-        let institutionExists = res.data.exists;
-        if(institutionExists) {
-
-        //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
-        //que hay en la base de datos con esas caracteristicas
-        let instituciones = res.data.institutions;
-        document.getElementById("nombre").innerHTML = instituciones[0].name;
-
-      }else{
-        alert("No existe");
-      }
-      }).catch((err) => {
-        console.log(err);
-      });
+    findCourses: async function () {
+      await findCoursesService
+        .findAll({
+          institutionID: this.idInstitution,
+        })
+        .then((res) => {
+          let courseExists = res.data.exists;
+          if (courseExists) {
+            //leer lo que devuelve el servidor donde courses es un array que tiene todos los cursos
+            //que hay en la base de datos con esas caracteristicas
+            this.courses = res.data.courses;
+          } else {
+            console.log("No existe");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 });
@@ -99,13 +131,29 @@ export default defineComponent({
   height: 300px;
 }
 
-#signatures {
+#courses {
   flex-direction: column;
   margin-top: 6%;
   margin-left: 7%;
   border: 1px solid black;
   width: 60%;
   height: 542px;
+  
+}
+
+#course {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+#courseInfo {
+  display: flex;
+  flex-direction: row; 
+  width: 550px;
+  flex-wrap: wrap;
+  justify-content: space-around; 
+  margin-top:4%;
 }
 
 .imagen {
@@ -120,7 +168,6 @@ export default defineComponent({
 }
 
 .lupa {
-  
   width: 55px;
   height: 20px;
   margin-left: 2%;
@@ -133,7 +180,7 @@ export default defineComponent({
 }
 
 #buscar {
-  
+  z-index: 3;
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -142,8 +189,14 @@ export default defineComponent({
   width: 40%;
 }
 
-#nombre{
+#nombre {
   text-align: center;
 }
 
+.coursePhoto{
+  width: 100px;
+  height: 80px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
 </style>

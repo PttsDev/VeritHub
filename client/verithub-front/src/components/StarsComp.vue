@@ -38,7 +38,7 @@ export default {
 #stars {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  
   margin-left: 13%;
 }	
 
