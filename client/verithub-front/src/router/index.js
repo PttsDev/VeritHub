@@ -29,7 +29,7 @@ const routes = [
     beforeEnter: isAuthenticated
   },
   {
-    path: '/institution',
+    path: '/institution/:id',
     name: 'institution',
     component: () => import('../views/InstitutionsView.vue'),
   }

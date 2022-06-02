@@ -2,9 +2,14 @@
   <div id="principal">
     <label id="icon">
       <img :src="image" alt="imagen" class="imagen" />
+      <div id="nombre">
+        {{this.find()}}
+      </div>
       <StarsComp id="stars" />
     </label>
-    <label id="comments"> comentarios </label>
+    <label id="comments"> 
+      comentarios 
+    </label>
     <label id="signatures">
       asignaturas
       <div id="buscar">
@@ -14,8 +19,6 @@
           label="Search course"
           no-resize
           v-model="textoBusqueda"
-          clearable
-          clear-icon="mdi-close-circle"
           rows="1"
           columns="1"
         ></v-textarea>
@@ -31,17 +34,47 @@
 
 <script>
 import StarsComp from "../components/StarsComp.vue";
-export default {
+import { defineComponent } from 'vue';
+import findInstitutionService from '@/services/findInstitutionService.js';
+
+export default defineComponent({
   name: "InstitutionsView",
 
-  data: () => ({
-    image: "./1.jpg",
-    lupa: "./lupa.png",
-  }),
+  data() {
+    return{
+      image: "/1.jpg",
+    lupa: "/lupa.png",
+    idInstitution: this.$route.params.id,
+    }
+  },
   components: {
     StarsComp,
   },
-};
+
+  methods: {
+    find: async function(){
+
+      await findInstitutionService.find({
+        tipo : "id",
+        atributo : this.idInstitution
+      }).then( res=>{
+        let institutionExists = res.data.exists;
+        if(institutionExists) {
+
+        //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
+        //que hay en la base de datos con esas caracteristicas
+        let instituciones = res.data.institutions;
+        document.getElementById("nombre").innerHTML = instituciones[0].name;
+
+      }else{
+        alert("No existe");
+      }
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
+  },
+});
 </script>
 
 
@@ -59,7 +92,7 @@ export default {
 
 #comments {
   flex-direction: column;
-  margin-top: 20%;
+  margin-top: 23%;
   margin-left: -13%;
   border: 1px solid black;
   width: 16%;
@@ -72,7 +105,7 @@ export default {
   margin-left: 7%;
   border: 1px solid black;
   width: 60%;
-  height: 500px;
+  height: 542px;
 }
 
 .imagen {
@@ -107,6 +140,10 @@ export default {
   margin-left: 65%;
   margin-top: -2%;
   width: 40%;
+}
+
+#nombre{
+  text-align: center;
 }
 
 </style>

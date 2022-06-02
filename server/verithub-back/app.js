@@ -20,11 +20,13 @@ app.use(express.json());
 const register = require('./routes/register');
 const login = require('./routes/login');
 const institution = require('./routes/institution');
+const course = require('./routes/course');
 const user = require('./routes/user');
 
 app.use('/register', register);
 app.use('/login', login);
 app.use('/institution', institution);
+app.use('/course', course);
 app.use('/user', user);
 
 
