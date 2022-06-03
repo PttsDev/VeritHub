@@ -64,8 +64,8 @@ export default {
   name: "SearchBar",
   data: () => ({
     title: "VeritHub",
-    lupa: "./lupa.png",
-    logoTitulo: "./logoTitulo.png",
+    lupa: "/lupa.png",
+    logoTitulo: "/logoTitulo.png",
     favoritas: "Algunas universidades",
     tipos: ["Name", "Type", "Province", "Stars", "Public"], //Cambiar la forma de buscar
     textoBusqueda: "",
@@ -81,6 +81,12 @@ export default {
 
     find: async function(){
 
+      if(this.tipo=="Name"){
+        
+        return this.findCointains();
+        
+      }
+
       await findInstitutionService.find({
         tipo : this.tipo,
         atributo : this.textoBusqueda
@@ -93,6 +99,26 @@ export default {
         let instituciones = res.data.institutions;
         this.setFoundInstitutions(instituciones);
 
+      }else{
+        alert("No existe");
+      }
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
+
+    findCointains: async function(){
+
+      await findInstitutionService.findCointains({
+        name : this.textoBusqueda
+      }).then( res=>{
+        let institutionExists = res.data.exists;
+        if(institutionExists) {
+
+        //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
+        //que hay en la base de datos con esas caracteristicas
+        let instituciones = res.data.institutions;
+        this.setFoundInstitutions(instituciones);
       }else{
         alert("No existe");
       }
@@ -136,8 +162,8 @@ h2 {
 
 #select {
   z-index: 4;
-  margin-top: -24.2%;
-  margin-left: 54%;
+  margin-top: -23.9vw;
+  margin-left: 53vw;
   width: 30%;
 }
 

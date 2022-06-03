@@ -5,6 +5,7 @@ const state = () => ({
 const mutations = {
     setFoundInstitutions(state, foundInstitutions) {
         state.foundInstitutions = foundInstitutions
+        sessionStorage.setItem('foundInstitutions', JSON.stringify(foundInstitutions))
     }
 }
 

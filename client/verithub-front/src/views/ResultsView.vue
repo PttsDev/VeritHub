@@ -10,7 +10,7 @@
           class="item-search"
           clearable
           ></v-text-field>
-          <v-btn variant="plain" @click="this.find()">
+          <v-btn variant="plain" @click="this.findCointains()">
             <a>
               <img :src="lupaURL" alt="Lupa" class="lupa" />
             </a>
@@ -52,15 +52,13 @@ export default defineComponent({
     SearchLabelComp,
   },
   
-  mounted() {
-    this.find();
-  },
+  
 
   data (){
     return{ 
-      institutions : this.$store.state.institutions.foundInstitutions,
+      institutions : JSON.parse(sessionStorage.getItem('foundInstitutions')),
       textoBusqueda: "",
-      lupaURL: "./lupa.png",
+      lupaURL: "/lupa.png",
       tipo: "",
     }
   },
@@ -86,6 +84,28 @@ export default defineComponent({
       });
       this.textoBusqueda = "";
     },
+
+  findCointains: async function(){
+
+      await findInstitutionService.findCointains({
+        name : this.textoBusqueda
+      }).then( res=>{
+        let institutionExists = res.data.exists;
+        if(institutionExists) {
+
+        //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
+        //que hay en la base de datos con esas caracteristicas
+        let instituciones = res.data.institutions;
+        this.institutions = instituciones;
+        console.log(instituciones);
+
+      }else{
+        alert("No existe");
+      }
+      }).catch((err) => {
+        console.log(err);
+      });
+  },
   },
   
 });
