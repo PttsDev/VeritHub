@@ -139,6 +139,7 @@ export default defineComponent({
         this.insRef="/subject/" + id;
         await findSubjectsService.findById({subjectID: id}).then(res => {
           this.insName += res.data.name;
+
         }).catch(err => {
           console.log(err);
         });

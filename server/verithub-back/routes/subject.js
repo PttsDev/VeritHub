@@ -15,7 +15,7 @@ router.post('/create', function(req, res, next) {
     
 });
 
-router.post('findById', function(req, res, next) {
+router.post('/findById', function(req, res, next) {
   return findById({subjectID: req.body.subjectID}, res)
 }); 
 
