@@ -29,13 +29,21 @@
         </div>
         <div v-for="subject in subjectsResult" :key="subject" id="subject">
           <div id= "subjectInfo">
-            <a :href="'/subject/'+subject.id"> {{ subject.name }}</a> <StarsComp /> Creditos totales: {{ subject.credits }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Año: {{ subject.year }}<br />
-            <a :href="'/subject/'+subject.id"  > IR</a>
+            <v-hover
+        v-slot="{ hover }"
+      >
+        <v-card
+              :elevation="hover ? 12 : 2"
+              :class="{ 'on-hover': hover }" 
+          height="50"
+            >
+            <a :href="'/subject/'+subject.id"> {{ subject.name }}</a> <StarsComp /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Creditos totales: {{ subject.credits }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Año: {{ subject.year }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+            <a :href="'/subject/'+subject.id"> IR</a>
+            </v-card>
+        </v-hover>
           </div> 
         </div>
-        <p v-if="busqueda == 'y'" >
-          a
-        </p>
+        
         
         
     </label>
@@ -77,7 +85,7 @@ export default defineComponent({
     find: async function () {
       await findCoursesService
         .findAll({
-          institutionID: this.IDcourse,
+          institutionID: this.$route.params.id,
         })
         .then((res) => {
           let courseExists = res.data.exists;
@@ -221,5 +229,21 @@ h1{
 
 #nombre {
   text-align: center;
+}
+
+.v-card {
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    margin-left: -150px;
+    transition: opacity .4s ease-in-out;
+}
+
+.v-card.on-hover.theme--dark{
+  background-color: rgba(#FFF, 0.8);
+}
+
+.v-card__text{
+    color: red;
 }
 </style>

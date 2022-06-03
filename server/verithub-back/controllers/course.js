@@ -7,7 +7,7 @@ module.exports = {
         let institutionID = params.institutionID
         course.findAll({
             where: {
-                institutionID: institutionID,
+                id: institutionID,
             }
         })
         .then(courses => {
