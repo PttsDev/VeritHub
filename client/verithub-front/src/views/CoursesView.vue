@@ -37,7 +37,7 @@
               :class="{ 'on-hover': hover }" 
           height="50"
             >
-            <a :href="'/subject/'+subject.id"> {{ subject.name }}</a> <StarsComp /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Creditos totales: {{ subject.credits }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Año: {{ subject.year }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+            <a :href="'/s/forum/'+subject.id"> {{ subject.name }}</a> <StarsComp /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Creditos totales: {{ subject.credits }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Año: {{ subject.year }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
             <a :href="'/subject/'+subject.id"> IR</a>
             </v-card>
         </v-hover>
