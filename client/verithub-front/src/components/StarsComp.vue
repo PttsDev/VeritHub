@@ -42,7 +42,6 @@ export default defineComponent({
   display: flex;
   flex-direction: row;
   align-items: center;
-  /*margin-left: 30px;*/
 }	
 
 #text {

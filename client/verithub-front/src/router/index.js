@@ -33,6 +33,31 @@ const routes = [
     name: 'profile',
     component: () => import('../views/ProfileView.vue'),
     beforeEnter: isAuthenticated
+  },
+  {
+    path: '/:type([s|c])/forum/:id',
+    name: 'forum',
+    component: () => import('../views/ForumView.vue'),
+  },
+  {
+    path: '/:type([s|c])/forum/:idForum/:idThread',
+    name: 'thread',
+    component: () => import('../views/ThreadView.vue'),
+  },
+  {
+    path: '/institution/:id',
+    name: 'institution',
+    component: () => import('../views/InstitutionsView.vue'),
+  },
+  {
+    path: '/course/:id',
+    name: 'course',
+    component: () => import('../views/CoursesView.vue'),
+  },
+  {
+    path: '/subject/:id',
+    name: 'subject',
+    component: () => import('../views/SubjectView.vue'),
   }
 ]
 
