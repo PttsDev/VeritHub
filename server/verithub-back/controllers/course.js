@@ -4,10 +4,12 @@ const course = require('../models').course;
 module.exports = {
 
     findAll(params, res){
+        let tipo = params.tipo
         let institutionID = params.institutionID
+        console.log(tipo)
         course.findAll({
             where: {
-                id: institutionID,
+                [tipo]: institutionID,
             }
         })
         .then(courses => {

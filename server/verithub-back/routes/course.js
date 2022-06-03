@@ -4,8 +4,8 @@ const router = express.Router();
 
 /* Ruta para pedir datos de logueo */
 router.post('/findAll', function(req, res, next) {
-    
-    return findAll({institutionID: req.body.institutionID}, res)
+    console.log(req.body)
+    return findAll({tipo: req.body.tipo, institutionID: req.body.institutionID}, res)
       
 });
 
