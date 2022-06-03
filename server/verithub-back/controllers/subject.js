@@ -36,5 +36,18 @@ module.exports = {
             res.status(200).send(subjects)
         })
         .catch(error => res.status(400).send(error));
+    },
+
+    findById(params, res){
+        id = params.subjectID;
+        subject.findOne({
+            where: {
+                id: id,
+            }
+        })
+        .then(subject => {
+            res.status(200).send(subject)
+        })
+        .catch(error => res.status(400).send(error));
     }
 }
