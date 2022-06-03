@@ -52,21 +52,7 @@ export default defineComponent({
   },
   data (){
     return{ 
-      //institutions : this.$store.state.institutions.foundInstitutions,
-      institutions : [
-        {name:"Universidad de Salamanca", stars:4, id:1, provincia:"Salamanca", isPublic:true, photo:"/1.jpg"},
-        {name:"Universidad de Leon", stars:5, id:2, provincia:"Leon", isPublic:true, photo:"/1.jpg"},
-        {name:"Universidad de Burgos", stars:1, id:3, provincia:"Burgos", isPublic:false, photo:"/1.jpg"},
-        {name:"Universidad de Complutense de Madrid", stars:2, id:4, provincia:"Madrid", isPublic:true, photo:"/1.jpg"},
-        {name:"Universidad de Salamanca", stars:4, id:1, provincia:"Salamanca", isPublic:true, photo:"/1.jpg"},
-        {name:"Universidad de Leon", stars:5, id:2, provincia:"Leon", isPublic:true, photo:"/1.jpg"},
-        {name:"Universidad de Burgos", stars:1, id:3, provincia:"Burgos", isPublic:false, photo:"/1.jpg"},
-        {name:"Universidad de Complutense de Madrid", stars:2, id:4, provincia:"Madrid", isPublic:true, photo:"/1.jpg"},
-        {name:"Universidad de Salamanca", stars:4, id:1, provincia:"Salamanca", isPublic:true, photo:"/1.jpg"},
-        {name:"Universidad de Leon", stars:5, id:2, provincia:"Leon", isPublic:true, photo:"/1.jpg"},
-        {name:"Universidad de Burgos", stars:1, id:3, provincia:"Burgos", isPublic:false, photo:"/1.jpg"},
-        {name:"Universidad de Complutense de Madrid", stars:2, id:4, provincia:"Madrid", isPublic:true, photo:"/1.jpg"},
-      ],
+      institutions : this.$store.state.institutions.foundInstitutions,
       textoBusqueda: "",
       lupaURL: "./lupa.png",
     }
