@@ -30,13 +30,20 @@
         <div v-for="course in coursesResult" :key="course" id="course">
            <a :href="'/course/'+course.id"><img :href="URL" :src="course.photo" class="coursePhoto" id="coursePhotoAux"/></a>
           <div id= "courseInfo">
+            <v-hover
+        v-slot="{ hover }"
+      >
+        <v-card
+              :elevation="hover ? 12 : 2"
+              :class="{ 'on-hover': hover }" 
+            >
             <a :href="'/course/'+course.id"> {{ course.name }}</a> <StarsComp /> {{ course.price }} €/cts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nota de corte: {{ course.minGrade }}<br />
             <a :href="'/course/'+course.id"  > IR</a>
+            </v-card>
+        </v-hover>
           </div> 
+          
         </div>
-        <p v-if="busqueda == 'y'" >
-          a
-        </p>
         
         
     </label>
@@ -231,5 +238,13 @@ h1{
   height: 80px;
   margin-left: 10px;
   margin-top: 10px;
+}
+
+.v-card {
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    margin-left: -100px;
+    transition: opacity .4s ease-in-out;
 }
 </style>
