@@ -111,6 +111,7 @@ export default defineComponent({
     find: async function () {
       await findCoursesService
         .findAll({
+          tipo: "id",
           institutionID: this.IDcourse,
         })
         .then((res) => {

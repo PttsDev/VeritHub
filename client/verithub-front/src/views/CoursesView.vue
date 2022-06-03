@@ -85,9 +85,11 @@ export default defineComponent({
     find: async function () {
       await findCoursesService
         .findAll({
+          tipo: "id",
           institutionID: this.$route.params.id,
         })
         .then((res) => {
+          
           let courseExists = res.data.exists;
           if (courseExists) {
             //leer lo que devuelve el servidor donde courses es un array que tiene todos los cursos
