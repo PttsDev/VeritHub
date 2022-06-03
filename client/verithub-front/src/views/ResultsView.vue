@@ -39,6 +39,7 @@
 import { defineComponent } from 'vue';
 
 // Components
+import { mapActions } from 'vuex';
 import FooterComp from '../components/FooterComp.vue';
 import SearchLabelComp from '../components/SearchLabelComp.vue';
 import findInstitutionService from '@/services/findInstitutionService.js';
@@ -55,17 +56,24 @@ export default defineComponent({
       institutions : this.$store.state.institutions.foundInstitutions,
       textoBusqueda: "",
       lupaURL: "./lupa.png",
+      tipo: "",
     }
   },
   methods: {
+    ...mapActions('institutions', [
+      'setFoundInstitutions',
+    ]),
     find: async function(){
     console.log("find: "+this.textoBusqueda);
-
       await findInstitutionService.find({
-        tipo : this.tipo,
+        
+        tipo : "name",
         atributo : this.textoBusqueda
       }).then( res=>{
-        if(res.data.exists) this.setFoundInstitutions(res.data.institutions);
+        if(res.data.exists) {
+          console.log(res.data.institutions);
+          this.institutions = res.data.institutions;
+        }
         else alert("No existe");
 
       }).catch((err) => {
