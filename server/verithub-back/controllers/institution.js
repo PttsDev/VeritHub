@@ -37,5 +37,26 @@ module.exports = {
             res.status(200).send(institutions)
         })
         .catch(error => res.status(400).send(error));
+    },
+
+    findCointains(params, res){
+
+        institution.findAll({
+            where: {
+                name: {
+                    [Sequelize.Op.like]: '%' + params.name + '%',
+                }
+            }
+        }).then(institutions => {
+            let response = {
+                institutions:institutions,
+                exists: true,
+            }
+
+            if(institutions.length == 0){
+                response.exists = false
+            }
+            res.status(200).send(response)
+        }).catch(error => res.status(400).send({error: "imposible de crear"}));
     }
 }
