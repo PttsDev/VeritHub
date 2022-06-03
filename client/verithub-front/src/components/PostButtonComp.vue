@@ -60,11 +60,9 @@ export default defineComponent({
     border-width: 1px;
 
     width: 100%;
-  
-
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     align-self: center;
     padding: 0px 10vw;
@@ -73,7 +71,7 @@ export default defineComponent({
   #creationData {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     align-self: center;
   }

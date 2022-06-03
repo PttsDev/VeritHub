@@ -8,10 +8,12 @@ module.exports = {
 
     find(params, res){
         post.findAll({
-          [params.type]:params.instOrSubjId
+          where: {
+            [params.type]:params.instOrSubjId
+          }
         })
         .then(async posts => {
-          console.log("hola")
+
           let response = {
             posts: posts,
             usernames: []

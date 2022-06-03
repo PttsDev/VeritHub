@@ -120,10 +120,10 @@ export default defineComponent({
     getInstitutionData: async function ()  {
       // Obtener datos de la institucion
       // this.insImg = "";
-      if(this.type === "c"){
+      if(this.$route.params.type === "c"){
         this.insName = "CURSO - ";
         this.insRef="/course/" + this.$route.params.id
-      } else {
+      } else  {
         this.insName = "ASIGNATURA - ";
         this.insRef="/subject/" + this.$route.params.id
       }
@@ -145,6 +145,8 @@ export default defineComponent({
 
         (response) => {
           console.log(response);
+
+          this.posts.push(response.data);
           this.createPostDialog = false;
           this.title = "";
           this.body = "";
@@ -158,8 +160,6 @@ export default defineComponent({
     },
 
     getPosts: async function() {
-      console.log("type");
-      console.log(this.type);
 
       await postService.findPosts({
         type: this.type,
@@ -174,6 +174,7 @@ export default defineComponent({
             url: '/forum/' + this.type + '/' + this.posts[post].courseID==null? this.posts[post].subjectID : this.posts[post].courseID + '/' + this.posts[post].id,
             };
         }
+        console.log(response)
       }).catch(error => {
         console.log(error);
       });
@@ -205,16 +206,13 @@ body {
   
 }
 
-template {
-  
-}
 #mainDiv {
   background-color: rgb(241, 241, 239);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-height: 100%;
+  overflow: hidden;
 }
 
 #instImg {
@@ -241,6 +239,7 @@ template {
   width:100%;
   margin-top: 15px;
   justify-content: center;
+  
 }
 
 #about {
@@ -276,19 +275,18 @@ template {
 
 #posts {
   display: flex;
-  justify-self: center;
+  justify-self: flex-start;
   flex-direction: column;
   width: 80%;
-  height: 100px;
-}
-
-#postBtns {
-  
+  flex-grow: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 
 }
 
 .post{
-
+  margin-bottom: 10px;
   
 }
+
 </style>

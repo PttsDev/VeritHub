@@ -34,7 +34,7 @@ const routes = [
     component: () => import('../views/ForumView.vue'),
   },
   {
-    path: '/forum/:type([s|c])/:idForum/:idThread',
+    path: '/:type([s|c])/forum/:idForum/:idThread',
     name: 'thread',
     component: () => import('../views/ThreadView.vue'),
   },
