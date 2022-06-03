@@ -2,8 +2,8 @@
   <v-app>
     <v-main>
       <HeaderComp />
-      <router-view/>
-      <FooterComp />
+      <router-view class="a"/>
+      <FooterComp  />
     </v-main>
   </v-app>
 </template>
@@ -25,3 +25,11 @@ export default {
   beforeCreate() {this.$store.dispatch('user/initializeStore');},
 }
 </script>
+
+<style lang="css">
+
+.a{
+  padding-bottom: 50px;
+}
+
+</style>

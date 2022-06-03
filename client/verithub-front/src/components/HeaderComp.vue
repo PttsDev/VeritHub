@@ -306,7 +306,7 @@ export default {
   data: () => ({
 
     headerData: {
-      logo: './logo.png',
+      logo: '/logo.png',
       loggedMenuItems: [
         {
           text: 'Perfil',
