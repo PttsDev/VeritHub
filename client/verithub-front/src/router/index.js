@@ -35,6 +35,16 @@ const routes = [
     beforeEnter: isAuthenticated
   },
   {
+    path: '/:type([s|c])/forum/:id',
+    name: 'forum',
+    component: () => import('../views/ForumView.vue'),
+  },
+  {
+    path: '/:type([s|c])/forum/:idForum/:idThread',
+    name: 'thread',
+    component: () => import('../views/ThreadView.vue'),
+  },
+  {
     path: '/institution/:id',
     name: 'institution',
     component: () => import('../views/InstitutionsView.vue'),
