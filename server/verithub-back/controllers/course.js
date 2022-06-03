@@ -24,9 +24,9 @@ module.exports = {
         .catch(error => res.status(400).send({error: "imposible de encontrar"}));
     },
 
-    findCourse(params, res){
+    find(params, res){
         let courseName = params.name
-        course.findCourse({
+        course.findAll({
             where: {
                 name: courseName,
             }

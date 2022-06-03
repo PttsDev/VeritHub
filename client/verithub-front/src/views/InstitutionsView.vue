@@ -1,7 +1,7 @@
 <template>
   <div id="principal">
     <label id="icon">
-      <img :src="image" alt="imagen" class="imagen" />
+      <img :src="institucion.photo" alt="imagen" class="imagen" />
       <div id="nombre">
         {{ institucion.name }}
       </div>
@@ -9,10 +9,8 @@
     </label>
     <label id="comments"> comentarios </label>
     <label id="courses">
-        <h1>
-          Courses
-        </h1>
-        <p v-if="busqueda == 'y'" >sdfs</p>     
+        
+             
         <div id="buscar">
           <v-textarea
             id="areaBusqueda"
@@ -23,27 +21,24 @@
             rows="1"
             columns="1"
           ></v-textarea>
-          <v-btn variant="plain" @click="this.findCourse()">
+          <v-btn variant="plain" @click="this.findCourse2()">
             <a>
               <img :src="lupa" alt="Lupa" class="lupa" />
             </a>
           </v-btn>
         </div>
-        <div v-for="course in courses" :key="course" id="course">
-           <a :href="'/course/'+course.id"><img :href="URL" :src="course.photo" class="coursePhoto"/></a>
+        <div v-for="course in coursesResult" :key="course" id="course">
+           <a :href="'/course/'+course.id"><img :href="URL" :src="course.photo" class="coursePhoto" id="coursePhotoAux"/></a>
           <div id= "courseInfo">
             <a :href="'/course/'+course.id"> {{ course.name }}</a> <StarsComp /> {{ course.price }} €/cts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nota de corte: {{ course.minGrade }}<br />
             <a :href="'/course/'+course.id"  > IR</a>
           </div> 
         </div>
+        <p v-if="busqueda == 'y'" >
+          a
+        </p>
         
-        <div v-for="course in courses" :key="course" id="courseNew" >
-           <a :href="'/course/'+course.id"><img :href="URL" :src="course.photo" class="coursePhoto"/></a>
-          <div id= "courseInfo2">
-            <a :href="'/course/'+courseNew.id"> {{ courseNew.name }}</a> <StarsComp /> {{ courseNew.price }} €/cts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nota de corte: {{ courseNew.minGrade }}<br />
-            <a :href="'/course/'+courseNew.id"  > IR</a>
-          </div> 
-        </div>
+        
     </label>
   </div>
 </template>
@@ -64,8 +59,10 @@ export default defineComponent({
       idInstitution: this.$route.params.id,
       institucion: [],
       courses: [],
+      coursesResult: [],
       coursesNew: [],
       busqueda: "",
+      textoBusqueda: "",
     };
   },
   components: {
@@ -111,6 +108,8 @@ export default defineComponent({
             //leer lo que devuelve el servidor donde courses es un array que tiene todos los cursos
             //que hay en la base de datos con esas caracteristicas
             this.courses = res.data.courses;
+            this.coursesResult = res.data.courses;
+            
           } else {
             console.log("No existe");
           }
@@ -120,30 +119,15 @@ export default defineComponent({
         });
     },
 
-    findCourse: async function () {
-      await findCoursesService
-        .findAll({
-          institutionID: this.idInstitution,
-        })
-        .then((res) => {
-          let courseExists = res.data.exists;
-          if (courseExists) {
-            //leer lo que devuelve el servidor donde courses es un array que tiene todos los cursos
-            //que hay en la base de datos con esas caracteristicas
-            this.coursesNew = res.data.courses;
-            this.busqueda = "y";
-            alert(this.busqueda);
-            alert(this.coursesNew[0].name);
-          } else {
-            console.log("No existe");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    findCourse2: function () {
+      this.coursesResult = this.courses.filter((course) => {
+        return course.name.includes(this.textoBusqueda);
+      });
+      console.log(this.coursesResult);
     },
 
   },
+
 });
 </script>
 
@@ -175,21 +159,24 @@ h1{
   border: 1px solid black;
   width: 16%;
   height: 300px;
+  overflow: auto;
 }
 
 #courses {
   flex-direction: column;
-  margin-top: 40px;
+  margin-top: 60px;
   margin-left: 7%;
-  border: 1px solid black;
-  width: 60%;
-  height: 542px;
   
+  width: 60%;
+  height: 572px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #course {
   display: flex;
   flex-direction: row;
+  
   
 }
 
@@ -216,7 +203,7 @@ h1{
 .lupa {
   width: 55px;
   height: 20px;
-  margin-left: 2%;
+  margin-left: 18px;
 }
 
 .v-btn {
@@ -230,9 +217,9 @@ h1{
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  margin-left: 65%;
-  margin-top: -2%;
-  width: 40%;
+  
+
+  width: 400px;
 }
 
 #nombre {

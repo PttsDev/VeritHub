@@ -1,5 +1,5 @@
 const express = require('express');
-const { findAll, create } = require('../controllers/course');
+const { findAll, create, find } = require('../controllers/course');
 const router = express.Router();
 
 /* Ruta para pedir datos de logueo */
@@ -9,9 +9,9 @@ router.post('/findAll', function(req, res, next) {
       
 });
 
-router.post('/findCourse', function(req, res, next) {
+router.post('/find', function(req, res, next) {
     
-    return findCourse({name: req.body.name}, res)
+    return find({name: req.body.name}, res)
       
 });
 
