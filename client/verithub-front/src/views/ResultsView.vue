@@ -1,21 +1,34 @@
 <template>
-  <!--Clave API: AIzaSyD_IlgiAW6kpxobip8z7gW6lcPoJsK9yHA-->
   <div class="initial">
     <div class="main-body-conteiner">
       <div class="search-bar-container">
-        <!--Aquí vendríala search bar-->
-        <h2>ESTO ES LA BARRA DE NAVEGACIÓN</h2>
+        <div class="search-bar">
+          <v-text-field
+          name="searchUniversity"
+          label="Search for an university"
+          v-model="textoBusqueda"
+          class="item-search"
+          clearable
+          ></v-text-field>
+          <v-btn variant="plain" @click="this.find()">
+            <a>
+              <img :src="lupaURL" alt="Lupa" class="lupa" />
+            </a>
+          </v-btn>
+        </div>
       </div>
       <div class="content-container">
-        <ol>
-          <li v-for="(univ, index) in this.institutions" :key="index">
-            <SearchLabelComp :title="univ.name" :stars="univ.stars"/>
-          </li>
-        </ol>
-        <div class="map-container">
-          <!--Aquí viene el mapa-->
-          <h2>ESTO ES EL MAPA</h2>
-        </div>
+          <ol>
+            <li v-for="(univ, index) in this.institutions" :key="index">
+              <SearchLabelComp 
+              :title="univ.name" 
+              :stars="univ.stars" 
+              :provincia="univ.provincia" 
+              :id="univ.id" 
+              :isPublic="univ.isPublic"
+              :photo="univ.photo"/>
+            </li>
+         </ol>
       </div>
     </div>
    <FooterComp />
@@ -28,6 +41,7 @@ import { defineComponent } from 'vue';
 // Components
 import FooterComp from '../components/FooterComp.vue';
 import SearchLabelComp from '../components/SearchLabelComp.vue';
+import findInstitutionService from '@/services/findInstitutionService.js';
 
 export default defineComponent({
   name: 'ResultsView',
@@ -38,17 +52,30 @@ export default defineComponent({
   },
   data: ()=>{
     return{ 
-      //institutions : this.$store.state.institutions.foundInstitutions,
-      institutions : [
-        {name:"Salamanca", stars:4},
-        {name:"Leon", stars:5},
-        {name:"Burgos", stars:1},
-        {name:"Madrid", stars:2},
-      ],
+      institutions : this.$store.state.institutions.foundInstitutions,
+      textoBusqueda: "",
+      lupaURL: "./lupa.png",
     }
   },
+  methods: {
+    find: async function(){
+    console.log("find: "+this.textoBusqueda);
+
+      await findInstitutionService.find({
+        tipo : this.tipo,
+        atributo : this.textoBusqueda
+      }).then( res=>{
+        if(res.data.exists) this.setFoundInstitutions(res.data.institutions);
+        else alert("No existe");
+
+      }).catch((err) => {
+        console.log(err);
+      });
+      this.textoBusqueda = "";
+    },
   },
-);
+  
+});
 </script>
 
 <style lang="css">
@@ -80,31 +107,29 @@ export default defineComponent({
   }
 
   .search-bar-container {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .search-bar{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /*La altura debe ser la justa para que entren los elementos en linea (row)*/
-
-    /*Test */
-    border: 3px solid red;
   }
 
   .content-container {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     /*La altura debe ser la justa para que entren los elementos en linea (row)*/
   }
-
-  .content-container > * {
-    width: 50%;
-  }
-
-  .map-container{
-    /*Test */
-    border: 3px solid greenyellow;
-  }
-
+  
   .results-container {
     display: flex;
     flex-direction: column;
@@ -119,6 +144,26 @@ export default defineComponent({
     display: flex;
   }
 
+  ol li {
+    list-style-type: none;
+  }
 
+  .lupa {
+    width: 55px;
+    height: 20px;
+  }
 
+  .item-search {
+    width: 250px;
+    height: 55px;
+    margin: 0%;
+    padding: 0%;
+
+  }
+
+  v-select {
+    height: 55px;
+    margin: 0px;
+    padding: 0px;
+  }
 </style>
