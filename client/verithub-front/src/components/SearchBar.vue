@@ -16,9 +16,9 @@
         rows="1"
         columns="1"
       ></v-textarea>
-      <v-btn variant="plain" @click="this.find()">
+      <v-btn variant="plain" :href="'/results'" @click="this.find()">
         <a>
-          <img :src="lupa" alt="Lupa" class="lupa" />
+          <img  :src="lupa" alt="Lupa" class="lupa" />
         </a>
       </v-btn>
     </div>
@@ -91,11 +91,6 @@ export default {
         //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
         //que hay en la base de datos con esas caracteristicas
         let instituciones = res.data.institutions;
-        for(let i = 0; i < instituciones.length; i++){
-          
-          alert(instituciones[i].name);
-        }
-
         this.setFoundInstitutions(instituciones);
 
       }else{

@@ -51,6 +51,11 @@ export default defineComponent({
     FooterComp,
     SearchLabelComp,
   },
+  
+  mounted() {
+    this.find();
+  },
+
   data (){
     return{ 
       institutions : this.$store.state.institutions.foundInstitutions,
