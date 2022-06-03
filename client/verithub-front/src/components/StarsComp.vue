@@ -6,7 +6,7 @@
         </span>
     </div>
     <v-rating
-      v-model="rating"
+      v-model="this.rating"
       length="5"
       background-color="white"
       color="black"
@@ -19,18 +19,21 @@
 </template>
 
 <script>
-export default {
-  name: "StarComp",
-  data: () => ({
-    rating: 3,
-  }),
-
-  methods: {
-    setRating(rating) {
-      this.rating = rating;
-    },
+import { defineComponent } from "vue";
+export default defineComponent({
+  name: "StarsComp",
+  props: {
+    stars: {
+        type: Number,
+        required: true
+    }
   },
-};
+  data () {
+    return{
+      rating: this.stars,
+    }
+  },
+});
 </script>
 
 <style lang="css" scoped>
@@ -38,8 +41,7 @@ export default {
 #stars {
   display: flex;
   flex-direction: row;
-  
-  margin-left: 13%;
+  align-items: center;
 }	
 
 #text {

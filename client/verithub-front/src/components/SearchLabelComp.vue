@@ -1,49 +1,65 @@
-<!-- SEARCH LABEL:
-Descripcion:
-Se trata de un elemento que se repetirá y que debe mostrar un texto u otro.
-
-Partes:
-    - Nombre de la universidad.
-    - Rating de la universidad.
-    - Distancia a la universidad.(?)
--->
-
 <template>
     <div class="label">
         <div class="show-images">
-            <img class="center-img" src="./1.jpg">
+            <img class="center-img" :src="this.photo" :alt="this.title">
         </div>
         <div class="show-info">
-            <!--Contiene:
-                Título, Distancia, Estrellas, Opiniones.-->
-
-            <h2 class="label-title">{{title}}</h2>
-            <v-rating class="star-rating" value="3" size="20" hover color="warning" ></v-rating>
+            <a class="titulo" :href="this.urlInstit"><span>{{this.title}}</span></a>
+            <div class="location-status-rating">
+                <span>{{this.provincia}}</span>
+                <span v-if="this.isPublic">Pública</span>
+                <span v-else>Privada</span>
+                <StarsComp :stars="this.stars"/>
+            </div>
         </div>
 
     </div>
 </template>
 
 <script>
-    export default {
+    import StarsComp from '../components/StarsComp.vue';
+    import { defineComponent } from 'vue';
+
+    export default defineComponent({
         name: 'SearchLabelComp',
+        components: {
+            StarsComp,
+        },
         props: {
+            id:{
+                type: Number,
+                required: true,
+            },
             title: {
                 type: String,
                 required: true
-            }
+            },
+            isPublic:{
+                type: Boolean,
+                required: true
+            }, 
+            provincia:{
+                type: String,
+                required: true
+            }, 
+            photo:{
+                type: String,
+                required: true
+            },
+            stars: {
+                type: Number,
+                required: true
+            },
         },
-        data: () => {
+        data () {
             return {
-                stars:5,
-                rating:0,
+                urlInstit: "/institution/"+this.id,
             }
         },
         methods: {
-            getUniversityData: function () {
-            }
+            
         }
-    }
+    });
 
 </script>
 
@@ -54,9 +70,12 @@ Partes:
         height: 125px;
         margin:3px;
         padding:3px;
-        background-color: lightgray;
+        background-color: white;
+        box-shadow: 3px 3px 1px rgb(212, 212, 212);
         border-radius: 3px;
-        border: 1px solid black;
+        border: 1px solid rgb(212, 212, 212);
+        gap: 1.5rem;
+        min-width: 600px;
     }
 
     .label > *{
@@ -65,16 +84,19 @@ Partes:
     }
 
     .show-images {
-        justify-content: center;
-        align-items: center;
-        width: 33%;
+        justify-content: right;
+        align-items: right;
+        width: auto;
     }
     .show-images img{
+        height: 100%;
         border-radius: 5px;
     }
 
     .show-info {
         flex-direction: column; /*para stackear los elementos*/
+        align-items: left;
+        gap: 0.5rem;
         width: 66%;
     }
 
@@ -82,10 +104,29 @@ Partes:
         font-size: 18px;
     }
 
-    .center-img{
-        width: 100%;
-        height: 100%;
+    .location-status-rating {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .titulo{
+        font-size: 18px;
+        font-weight: bold;
+
     }
     
+    .titulo :hover{
+        background-color: rgb(193, 193, 193);
+        border-left: 10px solid rgb(193, 193, 193);
+        border-right: 10px solid rgb(193, 193, 193);
+        border-radius: 25px;
+    }
 
 </style>
