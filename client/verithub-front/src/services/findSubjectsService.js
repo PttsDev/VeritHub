@@ -10,4 +10,8 @@ export default {
   find (credentials) {
     return api().post('/subject/find', credentials);
   },
+
+  findById(credentials) {
+    return api().post('/subject/findById', credentials);
+  }
 }

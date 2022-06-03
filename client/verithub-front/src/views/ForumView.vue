@@ -78,6 +78,8 @@
 <script>
 import { defineComponent } from 'vue';
 import postService from '@/services/postService';
+import findSubjectsService from '@/services/findSubjectsService';
+import findCoursesService from '@/services/findCoursesService';
 import PostButtonComp from '../components/PostButtonComp.vue';
 
 export default defineComponent({
@@ -120,16 +122,30 @@ export default defineComponent({
     getInstitutionData: async function ()  {
       // Obtener datos de la institucion
       // this.insImg = "";
+      let id = this.$route.params.id;
       if(this.$route.params.type === "c"){
         this.insName = "CURSO - ";
-        this.insRef="/course/" + this.$route.params.id
+        this.insRef="/course/" + id;
+
+        await findCoursesService.findAll({tipo: "id", institutionID: id}).then(res => {
+          this.insName += res.data.courses[0].name;
+          this.insImg = res.data.courses[0].photo;
+        }).catch(err => {
+          console.log(err);
+        });
+
       } else  {
         this.insName = "ASIGNATURA - ";
-        this.insRef="/subject/" + this.$route.params.id
+        this.insRef="/subject/" + id;
+        await findSubjectsService.findAll({subjectID: id}).then(res => {
+          this.insName += res.data.name;
+        }).catch(err => {
+          console.log(err);
+        });
+
       }
 
-      //this.insName += await postService.getInstitutionName(this.idInst);
-      this.insName += "INGENIERIA INFORMATICA";
+  
       
     },
 
