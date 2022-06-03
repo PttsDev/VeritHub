@@ -23,6 +23,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
+    path: '/results',
+    name: 'results',
+    //Añadir ResultsView
+    component: () => import(/* webpackChunkName: "about" */ '../views/ResultsView.vue')
+  },
+  {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/ProfileView.vue'),
@@ -38,7 +44,16 @@ const routes = [
     name: 'thread',
     component: () => import('../views/ThreadView.vue'),
   },
-
+  {
+    path: '/institution/:id',
+    name: 'institution',
+    component: () => import('../views/InstitutionsView.vue'),
+  },
+  {
+    path: '/course/:id',
+    name: 'course',
+    component: () => import('../views/CoursesView.vue'),
+  }
 ]
 
 const router = createRouter({
