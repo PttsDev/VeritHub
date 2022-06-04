@@ -70,6 +70,45 @@
           </v-card>
         </v-dialog>
       </div>
+
+      <div>
+        <v-dialog v-model="createFeeCalculationDialog">
+          <!--eslint-disable-next-line vue/no-unused-vars-->
+          <template v-slot:activator="{ props }">
+            <v-btn :="props" target="_blank"> Calcular coste curso </v-btn>
+          </template>
+
+          <v-card elevation="7" style="width: 150%">
+            <v-card-title>
+              <span class="text-h5">¿Crees que vas a repetir?</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-form ref="form" lazy-validation>
+              <v-radio-group
+                    label="Repetir?"
+                    v-model="this.repetir"
+                  >
+                    <v-radio label="Si" value="1"> </v-radio>
+                    <v-radio label="No" value="0"> </v-radio>
+                  </v-radio-group>
+              </v-form>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn variant="text" @click="this.createFeeCalculationDialog = false">
+                Cancelar
+              </v-btn>
+              <v-btn variant="text" @click="this.calculateTuitionFee()">
+                Calcular
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog><br />
+        <p style="margin-left:10px" v-if="coste!=undefined">Coste estimado: {{this.coste}} €</p>
+      </div>
+
     </label>
     <label id="courses">
       <div id="buscar">
@@ -109,6 +148,7 @@ import { defineComponent } from "vue";
 import findCoursesService from "@/services/findCoursesService.js";
 import findSubjectsService from "@/services/findSubjectsService.js";
 import createSubjectService from "@/services/createSubjectService.js";
+import helperServices from "@/services/helperServices.js";
 
 export default defineComponent({
   name: "CoursesView",
@@ -124,7 +164,9 @@ export default defineComponent({
       busqueda: "",
       textoBusqueda: "",
       courses: [],
-
+      createFeeCalculationDialog: false,
+      repetir: 0,
+      coste: undefined,
       createSubjectDialog: false,
       subjectData: {
         name: "",
@@ -208,6 +250,20 @@ export default defineComponent({
 
       this.createSubjectDialog = false;
     },
+
+    calculateTuitionFee: async function () {
+      await helperServices
+        .fetchDataForFee({id: this.$route.params.id})
+        .then((res) => {
+          let data = res.data;
+          data = {...data, repetir: this.repetir};
+          this.coste = helperServices.calculateTuitionFee(data);
+          this.createFeeCalculationDialog = false;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 });
 </script>
@@ -283,7 +339,7 @@ h1 {
 
 .lupa {
   width: 55px;
-  height: 20px;
+  height: auto;
   margin-left: -20px;
 }
 
