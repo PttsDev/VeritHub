@@ -407,6 +407,7 @@ export default {
       'setFullName',
       'setPassword',
       'setLoggedIn',
+      'setIsAdmin',
       'logout',
     ]),
 
@@ -422,16 +423,6 @@ export default {
         password : this.userData.password
       }).then( res => {
 
-        /*
-          {
-          "email": "email@email.es",
-          "username": "pedrito12",
-          "fullName": "Pedro Picapiedra",
-          "photo": "https://i.pinimg.com/736x/1c/b3/77/1cb37778107856d56e05d378db46eda9.jpg",
-          "isAdmin": false,
-          "exists": true
-          }
-        */
         // Asignar los demas datos datos del usuario TODO: DEMAS DATOS
         console.log(res.data.fullName)
         this.setUserName(res.data.username);
@@ -440,6 +431,7 @@ export default {
         this.setFullName(res.data.fullName);
         this.setPassword(this.userData.password);
         this.setLoggedIn(true);
+        this.setIsAdmin(res.data.isAdmin);
 
         for(let item in this.userData){
           this.userData[item] = '';
@@ -461,7 +453,6 @@ export default {
 
     register: async function() {
 
-      //TODO: implementar
       //Se llama a la funcion de registro del servidor para comprobar si el usuario existe, si existe devuelve true y se muestra un mensaje de error
       //Si no existe devuelve false y se registra el usuario
       //Al final se borra los datos de userReigstration
@@ -496,11 +487,6 @@ export default {
     endSession: function() {
       this.logout();
       window.location.href = '/';
-    },
-
-    getUserData: function() {
-      //TODO: implementar
-      //En este metodo se obtienen los datos del usuario loggeado o que se acaba de loggear y se actualiza la variable user del store user
     },
   },
 
