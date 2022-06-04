@@ -31,7 +31,7 @@
               class="white--text"
               dark
             >
-              Log in
+              Iniciar sesión
             </v-btn>
           </template>
 
@@ -116,7 +116,7 @@
               class="white--text"
               dark
             >
-              Sign up
+              Registrarse
             </v-btn>
         </template>
 

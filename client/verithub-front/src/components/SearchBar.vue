@@ -80,7 +80,7 @@ export default {
         if(tipoBus.includes("niver")){
           tipoBus = 0;
         }
-        else if(tipoBus.includes("rado")){
+        else if(tipoBus.includes("titut")){
           tipoBus = 1;
         }
       }

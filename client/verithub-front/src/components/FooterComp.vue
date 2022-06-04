@@ -41,7 +41,7 @@ export default {
   data: () => ({
     links: [
       {
-        text: 'UNIVERSIDADES',
+        text: 'INSTITUCIONES',
         href: '/'
       },
       {
@@ -49,7 +49,7 @@ export default {
         href: '/results'
       },
       {
-        text: 'ACERCA DE NOSOTROS',
+        text: 'TÉRMINOS',
         href: '/about'
       }
     ],

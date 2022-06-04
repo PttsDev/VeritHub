@@ -1,14 +1,6 @@
 <template>
   <div id="principal">
-    <label id="icon">
-      <img :src="courses.photo" alt="imagen" class="imagen" />
-      <div id="nombre">
-        {{ subjects.name }}
-      </div>
-      <StarsComp id="stars" />
-    </label>
-    <label id="comments"> comentarios </label>
-    <label id="courses">
+
       <FONT FACE="Palatino Linotype" SIZE="6" COLOR="red" font-weight="bold"
         >GUIA DOCENTE</FONT
       ><br />
@@ -141,7 +133,6 @@ export default defineComponent({
           let subjectExists = res.data.exists;
           this.subjects = res.data.subjects;
             this.subjects = this.subjects[0];
-            alert(this.subjects);
           if (subjectExists) {
             //leer lo que devuelve el servidor donde courses es un array que tiene todos los cursos
             //que hay en la base de datos con esas caracteristicas
@@ -166,7 +157,7 @@ export default defineComponent({
 </script>
 
 
-<style lang="css">
+<style lang="css" scoped>
 h1 {
   font-size: 1.5em;
   color: #2c3e50;

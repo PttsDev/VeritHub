@@ -41,7 +41,7 @@
                     v-model="this.institutionData.type"
                   >
                     <v-radio label="Universidad" value="0"> </v-radio>
-                    <v-radio label="Grado superior" value="1"> </v-radio>
+                    <v-radio label="Instituto" value="1"> </v-radio>
                   </v-radio-group>
 
                   <v-radio-group
