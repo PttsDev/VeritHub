@@ -23,7 +23,7 @@
               <SearchLabelComp 
               :title="univ.name" 
               :stars="univ.stars" 
-              :provincia="univ.provincia" 
+              :provincia="univ.province" 
               :id="univ.id" 
               :isPublic="univ.isPublic"
               :photo="univ.photo"/>

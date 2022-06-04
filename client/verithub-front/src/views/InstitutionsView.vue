@@ -5,47 +5,48 @@
       <div id="nombre">
         {{ institucion.name }}
       </div>
-      <StarsComp id="stars" />
+
+      <StarsComp :stars=3 id="stars" />
     </label>
+
     <label id="comments"> comentarios </label>
     <label id="courses">
-        
-             
-        <div id="buscar">
-          <v-textarea
-            id="areaBusqueda"
-            name="searchUniversity"
-            label="Search course"
-            no-resize
-            v-model="textoBusqueda"
-            rows="1"
-            columns="1"
-          ></v-textarea>
-          <v-btn variant="plain" @click="this.findCourse2()">
-            <a>
-              <img :src="lupa" alt="Lupa" class="lupa" />
-            </a>
-          </v-btn>
-        </div>
-        <div v-for="course in coursesResult" :key="course" id="course">
-           <a :href="'/course/'+course.id"><img :href="URL" :src="course.photo" class="coursePhoto" id="coursePhotoAux"/></a>
-          <div id= "courseInfo">
-            <v-hover
-        v-slot="{ hover }"
-      >
-        <v-card
-              :elevation="hover ? 12 : 2"
-              :class="{ 'on-hover': hover }" 
-            >
-            <a :href="'/course/'+course.id"> {{ course.name }}</a> <StarsComp /> {{ course.price }} €/cts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nota de corte: {{ course.minGrade }}<br />
-            <a :href="'/course/'+course.id"  > IR</a>
+      <div id="buscar">
+        <v-textarea
+          id="areaBusqueda"
+          name="searchUniversity"
+          label="Search course"
+          no-resize
+          v-model="textoBusqueda"
+          rows="1"
+          columns="1"
+        ></v-textarea>
+        <v-btn variant="plain" @click="this.findCourse2()">
+          <a>
+            <img :src="lupa" alt="Lupa" class="lupa" />
+          </a>
+        </v-btn>
+      </div>
+      <div v-for="course in coursesResult" :key="course" id="course">
+        <a :href="'/course/' + course.id"
+          ><img
+            :href="URL"
+            :src="course.photo"
+            class="coursePhoto"
+            id="coursePhotoAux"
+        /></a>
+        <div id="courseInfo">
+          <v-hover v-slot="{ hover }">
+            <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+              <a :href="'/course/' + course.id"> {{ course.name }}</a>
+              <StarsComp :stars="course.stars" /> {{ course.price }} €/cts
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nota de corte:
+              {{ course.minGrade }}<br />
+              <a :href="'/course/' + course.id"> IR</a>
             </v-card>
-        </v-hover>
-          </div> 
-          
+          </v-hover>
         </div>
-        
-        
+      </div>
     </label>
   </div>
 </template>
@@ -70,6 +71,7 @@ export default defineComponent({
       coursesNew: [],
       busqueda: "",
       textoBusqueda: "",
+      starsInt: 0.0,
     };
   },
   components: {
@@ -95,6 +97,7 @@ export default defineComponent({
             //que hay en la base de datos con esas caracteristicas
             let instituciones = res.data.institutions;
             this.institucion = instituciones[0];
+            this.starsInt = this.institucion.stars;
           } else {
             alert("No existe");
           }
@@ -117,7 +120,6 @@ export default defineComponent({
             //que hay en la base de datos con esas caracteristicas
             this.courses = res.data.courses;
             this.coursesResult = res.data.courses;
-            
           } else {
             console.log("No existe");
           }
@@ -133,16 +135,13 @@ export default defineComponent({
       });
       console.log(this.coursesResult);
     },
-
   },
-
 });
 </script>
 
 
-<style lang="css">
-
-h1{
+<style lang="css" scoped>
+h1 {
   font-size: 1.5em;
   color: #2c3e50;
   margin-top: 0;
@@ -174,7 +173,7 @@ h1{
   flex-direction: column;
   margin-top: 60px;
   margin-left: 7%;
-  
+
   width: 60%;
   height: 572px;
   overflow-y: auto;
@@ -184,17 +183,15 @@ h1{
 #course {
   display: flex;
   flex-direction: row;
-  
-  
 }
 
 #courseInfo {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   width: 750px;
   flex-wrap: wrap;
-  justify-content: space-around; 
-  margin-top:4%;
+  justify-content: space-around;
+  margin-top: 4%;
 }
 
 .imagen {
@@ -225,7 +222,6 @@ h1{
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  
 
   width: 400px;
 }
@@ -234,7 +230,7 @@ h1{
   text-align: center;
 }
 
-.coursePhoto{
+.coursePhoto {
   width: 100px;
   height: 80px;
   margin-left: 10px;
@@ -242,10 +238,10 @@ h1{
 }
 
 .v-card {
-    display: flex;
-    flex-direction: row;
-    width: 600px;
-    margin-left: -100px;
-    transition: opacity .4s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  margin-left: -100px;
+  transition: opacity 0.4s ease-in-out;
 }
 </style>
