@@ -1,58 +1,48 @@
 <template>
-  <div id="principal">
-    <div id="titulo">
+  <div class="init">
+    <div class="title-container">
       <img :src="logoTitulo" id="logoTitulo" />
-
       <h1>{{ title }}</h1>
     </div>
-    <div id="buscar">
-      <v-textarea id="areaBusqueda"
-        name="searchUniversity"
-        label="Search for an university"
-        no-resize
-        v-model="textoBusqueda"
-        clearable
-        clear-icon="mdi-close-circle"
-        rows="1"
-        columns="1"
-      ></v-textarea>
-      <v-btn variant="plain" :href="'/results'" @click="this.find()">
+
+    <div class="search-container">
+      <v-text-field id="areaBusqueda" name="searchUniversity" label="Search for an university"
+        v-model="textoBusqueda" clearable></v-text-field>
+      <div><v-select :items="tipos" label="Buscar por:" v-model="tipo" id="selected" ></v-select></div>
+      <v-btn id="boton-buscar" variant="plain" :href="'/results'" @click="this.find()">
         <a>
-          <img  :src="lupa" alt="Lupa" class="lupa" />
+          <img :src="lupa" alt="Lupa" class="lupa" />
         </a>
       </v-btn>
     </div>
-    <h2>{{ favoritas }}</h2>
-    <div id="universidades">
-      <v-btn flat class="unis-btn">
-        <img src="./ule.jpg" height="67" width="124" />
-      </v-btn>
-      <div class="espacio"></div>
-      <v-btn flat class="unis-btn">
-        <img src="./uniovi.jpg" height="120" width="124" />
-      </v-btn>
-      <div class="espacio"></div>
-      <v-btn flat class="unis-btn">
-        <img src="./universidadSalamanca.png" height="87" width="124" />
-      </v-btn>
-      <div class="espacio"></div>
-      <v-btn flat class="unis-btn">
-        <img
-          src="./universidad-complutense-madrid.jpg"
-          height="99"
-          width="124"
-        />
-      </v-btn>
+
+    <div class="icons-container">
+      <h2>{{ favoritas }}</h2>
+      <div id="universidades-icons">
+        <v-btn flat class="unis-btn">
+          <img src="./ule.jpg" height="67" width="124" />
+        </v-btn>
+
+        <v-btn flat class="unis-btn">
+          <img src="./uniovi.jpg" height="120" width="124" />
+        </v-btn>
+
+        <v-btn flat class="unis-btn">
+          <img src="./universidadSalamanca.png" height="87" width="124" />
+        </v-btn>
+
+        <v-btn flat class="unis-btn">
+          <img src="./universidad-complutense-madrid.jpg" height="99" width="124" />
+        </v-btn>
+      </div>
     </div>
-    <div id="select">
-    <v-container fluid>
-      <v-col class="d-flex" cols="12" sm="6">
-        <v-select :items="tipos" label="Buscar por:" v-model="tipo" id="selected"></v-select>
-      </v-col>
-    </v-container>
+
   </div>
-  </div>
-  
+
+
+
+
+
 </template>
 
 <script>
@@ -69,7 +59,7 @@ export default {
     favoritas: "Algunas universidades",
     tipos: ["Name", "Type", "Province", "Stars", "Public"], //Cambiar la forma de buscar
     textoBusqueda: "",
-    tipo:"Name",
+    tipo: "Name",
   }),
 
 
@@ -79,55 +69,55 @@ export default {
       'setFoundInstitutions',
     ]),
 
-    find: async function(){
+    find: async function () {
 
-      if(this.tipo=="Name"){
-        
+      if (this.tipo == "Name") {
+
         return this.findCointains();
-        
+
       }
 
       await findInstitutionService.find({
-        tipo : this.tipo,
-        atributo : this.textoBusqueda
-      }).then( res=>{
+        tipo: this.tipo,
+        atributo: this.textoBusqueda
+      }).then(res => {
         let institutionExists = res.data.exists;
-        if(institutionExists) {
+        if (institutionExists) {
 
-        //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
-        //que hay en la base de datos con esas caracteristicas
-        let instituciones = res.data.institutions;
-        this.setFoundInstitutions(instituciones);
+          //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
+          //que hay en la base de datos con esas caracteristicas
+          let instituciones = res.data.institutions;
+          this.setFoundInstitutions(instituciones);
 
-      }else{
-        alert("No existe");
-      }
+        } else {
+          alert("No existe");
+        }
       }).catch((err) => {
         console.log(err);
       });
     },
 
-    findCointains: async function(){
+    findCointains: async function () {
 
       await findInstitutionService.findCointains({
-        name : this.textoBusqueda
-      }).then( res=>{
+        name: this.textoBusqueda
+      }).then(res => {
         let institutionExists = res.data.exists;
-        if(institutionExists) {
+        if (institutionExists) {
 
-        //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
-        //que hay en la base de datos con esas caracteristicas
-        let instituciones = res.data.institutions;
-        this.setFoundInstitutions(instituciones);
-      }else{
-        alert("No existe");
-      }
+          //leer lo que devuelve el servidor donde institutions es un array que tiene todas las universidades 
+          //que hay en la base de datos con esas caracteristicas
+          let instituciones = res.data.institutions;
+          this.setFoundInstitutions(instituciones);
+        } else {
+          alert("No existe");
+        }
       }).catch((err) => {
         console.log(err);
       });
     },
   },
-  
+
 
 };
 </script>
@@ -150,74 +140,79 @@ h2 {
   margin-top: 3%;
 }
 
-#principal {
+.init {
   display: flex;
   flex-direction: column;
-  margin-top: 5%;
+  margin-top:50px;
 }
 
-#titulo {
-  z-index: 3;
+.title-container .icon-container .search-container {
+  height: 33%;
 }
 
-#select {
-  z-index: 4;
-  margin-top: -23.9vw;
-  margin-left: 53vw;
-  width: 30%;
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 50px;
 }
 
-#buscar {
+.search-container {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
-  
-  margin-top: 5%;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 600px;
+  margin-left:90px;
+  margin-top: -20px;
 }
 
-#logoTitulo {
-  align-self: center;
+.icons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.universidades-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#logoTitulo { 
   width: 100px;
   height: 60px;
-  margin-left: 46.8%;
-}
-
-.v-textarea {
-  margin-left: 30%;
-  margin-right: 25%;
-}
-
-#areaBusqueda {
-  z-index: 2;
-
+  margin: 0;
+  padding: 0;
 }
 
 .v-btn {
-  margin-top: 1%;
-  right: 25%;
-  z-index: 5;
+  margin-top: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
-.lupa {
-  width: 55px;
-  height: 20px;
-}
-
-#universidades {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: center;
-  margin-left: 35%;
-  margin-top: 1%;
+#boton-buscar {
+  margin-bottom: 50px;
+  margin-left: -20px;
 }
 
 .unis-btn {
   height: 120px;
   width: 124px;
+  padding: 10px 10px;
 }
 
-.espacio {
-  width: 20%;
+.lupa {
+  height: 30px;
+  width: auto;
+  align-self:top;
 }
+
+
 </style>
