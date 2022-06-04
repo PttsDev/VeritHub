@@ -11,7 +11,7 @@ router.post('/find', function(req, res, next) {
 
 router.post('/create', function(req, res, next) {
   
-  return create({name: req.body.name, type: req.body.type, province: req.body.province, stars: req.body.stars, isPublic: req.body.isPublic}, res)
+  return create({name: req.body.name, type: req.body.type, province: req.body.province, stars: req.body.stars, isPublic: req.body.isPublic, photo: req.body.photo}, res)
     
 });
 

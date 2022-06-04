@@ -32,6 +32,7 @@ module.exports = {
             province: params.province,
             stars: params.stars,
             isPublic: params.isPublic,
+            photo: params.photo,
         })
         .then(institutions => {
             res.status(200).send(institutions)

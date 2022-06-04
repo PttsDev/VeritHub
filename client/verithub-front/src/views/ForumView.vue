@@ -33,9 +33,10 @@
               <v-textarea
               lass="card-form-input" 
               v-model="this.body" 
-              label="Escribe lo que piensas"
+              label="Escribe lo que piensas (máx. 255)"
               type="text" autofocus required 
               placeholder="Tu texto..."
+              maxlength="255"
               >
               </v-textarea>
             </v-form>
@@ -159,8 +160,9 @@ export default defineComponent({
         title: this.title,
         body: this.body
       }).then(
-
+        
         (response) => {
+          this.$router.go();
           console.log(response);
 
           this.posts.push(response.data);
@@ -185,10 +187,14 @@ export default defineComponent({
         // /forum/:type([s|c])/:idForum/:idThread',
         this.posts = response.data.posts;
         for(let post in this.posts){
+          let id =  this.posts[post].courseID;
+          if(id == null){
+            id = this.posts[post].subjectID;
+          }
           this.posts[post] = {
             ...this.posts[post], 
             username: response.data.usernames[post],
-            url: '/forum/' + this.type + '/' + this.posts[post].courseID==null? this.posts[post].subjectID : this.posts[post].courseID + '/' + this.posts[post].id,
+            url: '/' +this.$route.params.type+ '/forum/' + id + '/' + this.posts[post].id,
             };
         }
         console.log(response)
@@ -207,7 +213,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 /* fuente Palatino Linotype */
 @font-face {
   font-family: 'Palatino Linotype';
@@ -305,5 +311,4 @@ body {
   margin-bottom: 10px;
   
 }
-
 </style>

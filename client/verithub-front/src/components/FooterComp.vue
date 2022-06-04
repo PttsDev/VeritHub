@@ -21,7 +21,6 @@
         >
           <v-btn
             :href="link.href"
-            target="_blank"
             variant="text"
             class="white--text"
             dark
@@ -43,15 +42,15 @@ export default {
     links: [
       {
         text: 'UNIVERSIDADES',
-        href: 'https://placeholder.com/'
+        href: '/'
       },
       {
         text: 'MÁS BUSCADOS',
-        href: 'https://placeholder.com/'
+        href: '/results'
       },
       {
         text: 'ACERCA DE NOSOTROS',
-        href: 'https://placeholder.com/'
+        href: '/about'
       }
     ],
   })

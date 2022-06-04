@@ -75,4 +75,17 @@ export default defineComponent({
     align-items: center;
     align-self: center;
   }
+
+a:hover {
+  background-color: rgb(193, 193, 193);
+  border-left: 10px solid rgb(193, 193, 193);
+  border-right: 10px solid rgb(193, 193, 193);
+  border-radius: 25px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
 </style>
