@@ -470,14 +470,14 @@ export default {
           
           // Si se ha completado la peticion correctamente, se borran los datos del formulario
           this.registerError = false;
-          this.registerDialog = false;
+          this.signupDialog = false;
           
           for(let item in this.registrationData)
             this.registrationData[item] = '';
       }).catch(() => {
           // Si da error, avisa al usuario
           this.registerError = true;
-          this.registerDialog = true;
+          this.signupDialog = true;
           this.headerData.isLogged = false;
           this.registerErrorMsg = 'El usuario con este email ya existe.';
       });

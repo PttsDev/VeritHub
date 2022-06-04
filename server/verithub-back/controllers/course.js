@@ -55,6 +55,7 @@ module.exports = {
             stars: params.stars,
             numStudents: params.numStudents,
             institutionID: params.institutionID,
+            photo: params.photo,
         })
         .then(courses => {
             res.status(200).send(courses)

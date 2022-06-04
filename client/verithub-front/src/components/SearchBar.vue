@@ -6,7 +6,7 @@
     </div>
 
     <div class="search-container">
-      <v-text-field id="areaBusqueda" name="searchUniversity" label="Search for an university"
+      <v-text-field id="areaBusqueda" name="searchUniversity" label="Buscar institución..."
         v-model="textoBusqueda" clearable></v-text-field>
       <div><v-select :items="tipos" label="Buscar por:" v-model="tipo" id="selected" ></v-select></div>
       <v-btn id="boton-buscar" variant="plain" :href="'/results'" @click="this.find()">
@@ -70,16 +70,24 @@ export default {
     ]),
 
     find: async function () {
-
+      let tipoBus = this.textoBusqueda;
       if (this.tipo == "Name") {
 
         return this.findCointains();
 
       }
-
+      if(this.tipo == "Type"){
+        if(tipoBus.includes("niver")){
+          tipoBus = 0;
+        }
+        else if(tipoBus.includes("rado")){
+          tipoBus = 1;
+        }
+      }
       await findInstitutionService.find({
+        
         tipo: this.tipo,
-        atributo: this.textoBusqueda
+        atributo: tipoBus
       }).then(res => {
         let institutionExists = res.data.exists;
         if (institutionExists) {
