@@ -5,6 +5,7 @@ const state = () => ({
   fullName: null,
   password: null,
   isLogged: false,
+  isAdmin: false,
 })
 
 const getters = {
@@ -58,6 +59,12 @@ const mutations = {
     localStorage.setItem('userStore', JSON.stringify(userStore))
     state.password = password
   },
+  setIsAdmin(state, isAdmin) {
+    let userStore = JSON.parse(localStorage.getItem('userStore'))
+    userStore.isAdmin = isAdmin;
+    localStorage.setItem('userStore', JSON.stringify(userStore))
+    state.isAdmin = isAdmin
+  },
 
   initializeStore(state) {
     if (localStorage.getItem('userStore')) {
@@ -68,6 +75,7 @@ const mutations = {
       state.isLogged = userStore.isLogged
       state.fullName = userStore.fullName
       state.password = userStore.password
+      state.isAdmin = userStore.isAdmin
     } else {
       let userStore = {
         userName: null,
@@ -76,6 +84,7 @@ const mutations = {
         isLogged: false,
         fullName: null,
         password: null,
+        isAdmin: false,
       }
       localStorage.setItem('userStore', JSON.stringify(userStore))
     }
@@ -89,6 +98,7 @@ const mutations = {
     userStore.isLogged = false;
     userStore.fullName = null;
     userStore.password = null;
+    userStore.isAdmin = false;
     localStorage.setItem('userStore', JSON.stringify(userStore));
     state.userName = null;
     state.photoURL = null;
@@ -96,6 +106,7 @@ const mutations = {
     state.isLogged = false;
     state.fullName = null;
     state.password = null;
+    state.isAdmin = false;
   }
 }
 
@@ -127,6 +138,9 @@ const actions = {
   },
   setPassword({ commit }, password) {
     commit('setPassword', password)
+  },
+  setIsAdmin({ commit }, isAdmin) {
+    commit('setIsAdmin', isAdmin)
   },
 
   initializeStore({ commit }) {
