@@ -1,9 +1,11 @@
 <template>
   <div id="principal">
-
+    <div>
       <FONT FACE="Palatino Linotype" SIZE="6" COLOR="red" font-weight="bold"
         >GUIA DOCENTE</FONT
       ><br />
+      </div>
+      <div>
       <b><FONT FACE="Palatino Linotype" SIZE="4">Competencias</FONT></b
       ><br />
       <ul>
@@ -17,7 +19,9 @@
           incluidos los basados en web.
         </li>
       </ul>
-
+      </div>
+      <div>
+        <b><FONT FACE="Palatino Linotype" SIZE="4">RESUMEN</FONT></b><br />
       Conocimiento y aplicación de los principios, metodologías y ciclos de vida
       de la ingeniería de software.<br />
       Conocimiento de la normativa y la regulación de la informática en los
@@ -64,12 +68,12 @@
       Que los estudiantes hayan desarrollado aquellas habilidades de aprendizaje
       necesarias para emprender estudios posteriores con un alto grado de
       autonomía<br />
-    </label>
+      </diV>
   </div>
 </template>
 
 <script>
-import StarsComp from "../components/StarsComp.vue";
+
 import { defineComponent } from "vue";
 import findCoursesService from "@/services/findCoursesService.js";
 import findSubjectsService from "@/services/findSubjectsService.js";
@@ -91,7 +95,6 @@ export default defineComponent({
     };
   },
   components: {
-    StarsComp,
   },
 
   mounted() {
@@ -171,7 +174,8 @@ ul {
 
 #principal {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  margin-left: 30px;
 }
 
 #icon {
