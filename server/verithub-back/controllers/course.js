@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const course = require('../models').course;
+const subject = require('../models').subject;
 
 module.exports = {
 
@@ -61,5 +62,32 @@ module.exports = {
             res.status(200).send(courses)
         })
         .catch(error => res.status(400).send(error));
+    },
+
+
+    findSubjects(params, res){
+        course.findOne({
+            where: {
+                id: params.id,
+            }
+        }).then(course => {
+            subject.findAll({
+                where: {
+                    courseID: course.id,
+                }
+            }).then(subjects => {
+                
+                let response = {
+                    subjects:subjects,
+                    creditCost: course.price,
+                    exists: true,
+                }
+                res.status(200).send(response);
+
+            }).catch(error => res.status(400).send({error: "imposible de encontrar asignatura"}));
+
+
+        }).catch(error => res.status(400).send({error: "imposible de encontrar curso"}));
     }
+
 }
