@@ -9,7 +9,7 @@
       <v-text-field id="areaBusqueda" name="searchUniversity" label="Buscar institución..."
         v-model="textoBusqueda" clearable></v-text-field>
       <div><v-select :items="tipos" label="Buscar por:" v-model="tipo" id="selected" ></v-select></div>
-      <v-btn id="boton-buscar" variant="plain" :href="'/results'" @click="this.find()">
+      <v-btn id="boton-buscar" variant="plain" @click="this.find()">
         <a>
           <img :src="lupa" alt="Lupa" class="lupa" />
         </a>
@@ -96,7 +96,7 @@ export default {
           //que hay en la base de datos con esas caracteristicas
           let instituciones = res.data.institutions;
           this.setFoundInstitutions(instituciones);
-
+          this.$router.push({name: 'results'});
         } else {
           alert("No existe");
         }
@@ -117,6 +117,7 @@ export default {
           //que hay en la base de datos con esas caracteristicas
           let instituciones = res.data.institutions;
           this.setFoundInstitutions(instituciones);
+          this.$router.push({name: 'results'});
         } else {
           alert("No existe");
         }
