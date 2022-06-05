@@ -110,7 +110,6 @@
         </ol>
       </div>
     </div>
-    <FooterComp />
   </div>
 </template>
 
@@ -119,7 +118,6 @@ import { defineComponent } from "vue";
 
 // Components
 import { mapActions } from "vuex";
-import FooterComp from "../components/FooterComp.vue";
 import SearchLabelComp from "../components/SearchLabelComp.vue";
 import findInstitutionService from "@/services/findInstitutionService.js";
 import createInstitutionService from "@/services/createInstitutionService.js";
@@ -128,7 +126,6 @@ export default defineComponent({
   name: "ResultsView",
 
   components: {
-    FooterComp,
     SearchLabelComp,
   },
 
