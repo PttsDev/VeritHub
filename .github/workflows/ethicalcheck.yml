@@ -43,7 +43,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write-all
 
 jobs:
   Trigger_EthicalCheck:
